@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap实战main.css">
+    <title>bootstrap实战</title>
+    <style>
+        /*有了bootstrap以后就不用wrapper手动指定了。container中给出了样式*/
+        .wrapper{
+            width:970px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">
+            </a>
+            <button class="navbar-toggle" data-toggle="collapse" data-target="#collapse2">
+                <div class="icon-bar"></div>
+                <div class="icon-bar"></div>
+                <div class="icon-bar"></div>
+            </button>
+        </div>
+        <div class="hidden-xs collapse navbar-collapse" id="collapse1" style="float: left">
+            <ul class="nav navbar-nav">
+                <li><a href="#">国内</a></li>
+                <li><a href="#">国际</a></li>
+                <li><a href="#">新闻</a></li>
+                <li><a href="#">头条</a></li>
+                <li><a href="#">体育</a></li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse" id="collapse2" style="float: right">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a href="bootstrap_login.html">登陆</a></li>
+                <li><a href="bootstrap_signup.html">注册</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <!--left-->
+        <div class="col-md-2 hidden-xs">
+            <div class="list-group list-group-side">
+                <a href="#" class="list-group-item active">全部</a>
+                <a href="#" class="list-group-item">电影</a>
+                <a href="#" class="list-group-item">电视剧</a>
+                <a href="#" class="list-group-item">明星</a>
+                <a href="#" class="list-group-item">八卦</a>
+                <a href="#" class="list-group-item">音乐</a>
+                <a href="#" class="list-group-item">演员</a>
+                <a href="#" class="list-group-item">歌手</a>
+            </div>
+        </div>
+        <!--middle-->
+        <div class="col-md-7">
+            <div class="news">
+                <div class="news-item clearfix">
+                    <div class="col-xs-5">
+                        <img src="images/bootstrap_img/10.jpg"/>
+                    </div>
+                    <div class="col-xs-7">
+                        <a href="bootstrap_news_details.html">这是一个网站的标题，当你点击的时候可以进入网站的详情页！！！马上点击它吧！！！</a>
+                        <div class="content">
+                            <span class="avatar"><img src="images/bootstrap_img/touxiang.jpg" /></span>
+                            <span>作者dzz</span> •
+                            <span>阅读量15k</span> •
+                            <span>上传于10分钟前</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-item clearfix">
+                    <div class="col-xs-5">
+                        <img src="images/bootstrap_img/10.jpg"/>
+                    </div>
+                    <div class="col-xs-7">
+                        <a href="bootstrap_news_details.html">这是一个网站的标题，当你点击的时候可以进入网站的详情页！！！马上点击它吧！！！</a>
+                        <div class="content">
+                            <span class="avatar"><img src="images/bootstrap_img/touxiang.jpg" /></span>
+                            <span>作者dzz</span> •
+                            <span>阅读量15k</span> •
+                            <span>上传于10分钟前</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-item clearfix">
+                    <div class="col-xs-5">
+                        <img src="images/bootstrap_img/10.jpg"/>
+                    </div>
+                    <div class="col-xs-7">
+                        <a href="bootstrap_news_details.html">这是一个网站的标题，当你点击的时候可以进入网站的详情页！！！马上点击它吧！！！</a>
+                        <div class="content">
+                            <span class="avatar"><img src="images/bootstrap_img/touxiang.jpg" /></span>
+                            <span>作者dzz</span> •
+                            <span>阅读量15k</span> •
+                            <span>上传于10分钟前</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--right-->
+        <div class="col-md-3">
+            <div class="search-bar">
+                <input type="search" class="form-control"/>
+            </div>
+            <div class="side-bar-card spec clearfix">
+                <div class="col-xs-5">
+                    <img src="images/bootstrap_img/1-1.png"/>
+                </div>
+                <div class="col-xs-7">
+                    <div class="header">有害信息举报专区</div>
+                    <div class="content">举报电话：12306</div>
+                </div>
+            </div>
+            <div class="side-bar-card clearfix">
+                <div class="card-title">
+                    24小时热闻
+                </div>
+                <div class="card-body">
+                    <div class="list">
+                        <div class="item">
+                            <a class="title">
+                                这是一个网站的标题，当你点击的时候可以进入网站的详情页！！！马上点击它吧！！！
+                            </a>
+                            <div class="content">
+                                15k阅读，1k评论
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        © 2017 拴蛋头条 中国互联网举报中心京ICP证1401号京ICP备125439号-3京公网安备
+    </div>
+
+</div>
+
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

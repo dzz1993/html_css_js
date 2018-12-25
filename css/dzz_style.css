@@ -1,0 +1,26 @@
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    font-size:14px;
+}
+ul{
+    list-style:none;
+}
+a{
+    text-decoration: none;
+}
+img{
+    display: block;
+    max-width: 100%;
+}
+/*清浮动加同级div*/
+.clear-float{
+    clear: both;
+    line-height: 0;
+    overflow: hidden;
+}
+/*父级div直接清浮动,.clearfix是bootstrap中定义好的清除浮动的类*/
+.clearfix{zoom:1;}
+.clearfix:after {clear:both;content:'.';display:block;width: 0;height: 0;visibility:hidden;}

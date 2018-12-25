@@ -1,0 +1,236 @@
+/*body wrapper本不应该写在这*/
+html{
+    height: 100%;
+}
+body{
+    width: 100%;
+    height: 100%;
+    background-color: #F6F6F6;
+}
+a{
+    color: #999;
+}
+.wrapper{
+    width: 1190px;
+    margin: 0 auto;
+}
+.wrapper{
+    width: 1090px;
+    margin: 0 auto;
+}
+#top{
+    width: 100%;
+    height: 30px;
+    background-color: rgb(227,228,230);
+    font-size: 12px;
+    line-height: 30px;
+}
+.address{
+    float: left;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+}
+.address-head{
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgb(227,228,230);
+    position: relative;
+    z-index: 2;
+}
+.address-head span{
+    position: relative;
+    color: #999;
+    left: 50px;
+}
+.address-head span:before{
+    content: '';
+    display: block;
+    width: 20px;
+    height: 16px;
+    background: url("../../images/jd-index/address.png") no-repeat center;
+    background-size: 20px 18px;
+    position: absolute;
+    top: 0;
+    left: -22px;
+}
+.address:hover .address-head{
+    background: white;
+    border: 1px solid #ccc;
+    border-bottom: 1px solid #fff;
+    z-index: 2;
+    cursor: pointer;
+}
+.address:hover .top-show{
+    display: block;
+}
+.top-show {
+    display: none;
+    position: absolute;
+    top: 29px;
+    left: 0px;
+    z-index: 1;
+    width: 382px;
+    padding:15px 10px;
+    background-color: white;
+    border: 1px solid #cccccc;
+}
+.top-show li{
+    float: left;
+    width: 60px;
+    margin: 5px 5px;
+    height: 26px;
+    line-height: 26px;
+}
+.top-show li a{
+    padding: 3px 10px;
+}
+.add-checked{
+    background-color: #D81E06;
+    color: white;
+}
+/*右边菜单*/
+#top-nav{
+    float: right;
+}
+#top-nav>li{
+    float: left;
+    height: 30px;
+    margin: 0 10px;
+    padding: 0 20px;
+    line-height: 30px;
+    position: relative;
+}
+#top-nav>li:after{
+    content: "|";
+    position: absolute;
+    right: -10px;
+    top: 0px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #ccc;
+}
+#top-nav>li:last-child:after{
+    content: "";
+}
+#top-nav .hover{
+    border: 1px solid rgb(227,228,230);
+    height: 30px;
+    line-height: 28px;
+}
+#top-nav .hover:hover{
+    border: 1px solid #ccc;
+    border-bottom: 1px solid white;
+    background-color: white;
+}
+#top-nav>li img{
+    width: 40px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+}
+/*个人信息*/
+#user{
+    position: absolute;
+    background-color: white;
+    left: 0;
+    top: 29px;
+    width: 302px;
+    height: 201px;
+    border: 1px solid #ccc;
+    border-top: none;
+    font-size: 14px;
+    color: #999;
+    display: none;
+}
+#user .top{
+    width: 100%;
+    height: 100px;
+}
+#user .top .head-img{
+    float: left;
+    width: 70px;
+    height: 70px;
+    margin: 15px;
+    border-radius: 50%;
+    background: url("../../images/jd-index/touxiang.jpg") no-repeat center;
+    background-size: 70px;
+}
+#user .head-info{
+    width: 180px;
+    float: right;
+    margin: 20px 10px;
+    overflow: hidden;
+}
+#user .head-info .line1{
+    height: 16px;
+    line-height: 16px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.line1 img{
+    float: left;
+    display: inline-block;
+    height: 16px;
+    width: 40px;
+}
+.line1 p{
+    float: right;
+    height: 16px;
+    line-height: 16px;
+}
+#user .divide-line{
+    width: 100%;
+    height: 1px;
+    background: #ccc;
+}
+#user .bottom{
+    width: 100%;
+    height: 100px;
+}
+#user .bottom .left{
+    float: left;
+    width: 10%;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    font-size: 30px;
+}
+#user .bottom ul{
+    float: left;
+    width: 80%;
+    height: 100px;
+    overflow: hidden;
+}
+#user .bottom li{
+    float: left;
+    width: 33%;
+    height: 100%;
+    text-align: center;
+    position: relative;
+    top: 60px;
+}
+#user .bottom li a:before{
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: url("../../images/jd-index/gift.png") no-repeat center;
+    background-size: 40px 40px;
+    position: absolute;
+    top: -40px;
+    left: 20px;
+}
+#user .bottom .right{
+    float: right;
+    width: 10%;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    font-size: 30px;
+}
+#top-nav .name:hover #user{
+    display: block;
+}

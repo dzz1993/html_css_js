@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/a_datas.js"></script>
+    <title>zhaopin</title>
+    <style>
+        #container{
+            width: 1000px;
+            margin: 150px auto;
+        }
+        #header{
+            border-bottom: 3px solid #F60;
+            height: 30px;
+        }
+        #header li{
+            font-weight: bold;
+            float: left;
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        #header li:hover{
+            cursor: pointer;
+        }
+        #header .sec{
+            background-color: #f60;
+            color: white;
+        }
+        #listContent li{
+            line-height: 30px;
+            height: 30px;
+            font-size: 16px;
+        }
+        #tips{
+            width:380px;
+            border: 2px solid #cccccc;
+            padding: 10px;
+            position: absolute;
+            z-index:2;
+            display: none;
+            background-color: white;
+        }
+        #tips p{
+            height: 30px;
+            line-height: 30px;
+        }
+        #tips .float{
+            width: 180px;
+            float: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+
+    </style>
+    <script type="text/javascript">
+        window.onload=function(){
+            var oUl = document.getElementById("header");
+            var oCon = document.getElementById("container");
+            var oDiv = document.getElementById("listContent");
+            var oTips=document.getElementById("tips");
+            for(var i=0;i<data.length;i++){
+                oUl.innerHTML+="<li>"+data[i]['name']+"</li>"
+            }
+            var list=oUl.getElementsByTagName('li');
+            list[0].className="sec";
+            for(var i=0;i<data.length;i++){
+                list[i]['index']=i;
+                list[i].onclick=function(){
+                    oDiv.innerHTML="";
+                    oTips.innerHTML="";
+                    for(var j=0;j<data.length;j++){
+                        list[j].className="";
+                    }
+                    this.className="sec";
+                    show_content(data[this.index]);
+                }
+            }
+            show_content(data[0]);
+            function show_content(obj){
+                var ul=document.createElement('ul');
+                for(var i=0;i<obj['list'].length;i++){
+                    var li=document.createElement("li");
+                    var a=document.createElement("a");
+                    a.href="javascript:";//如果用#可能出现点击变色的现象
+                    a.innerHTML=obj['list'][i]['title'];
+                    li.appendChild(a);
+                    ul.appendChild(li);
+
+                    a.index=i;
+                    var h4=document.createElement('h4');
+                    var p1=document.createElement('p');
+                    p1.className='float';
+                    var p2=document.createElement('p');
+                    p2.className='float';
+                    var p3=document.createElement('p');
+                    p3.className='float';
+                    var p4=document.createElement('p');
+                    p4.className='float';
+                    var p5=document.createElement('p');
+                    p5.className='float';
+                    var p6=document.createElement('p');
+                    p6.className='float';
+
+                    a.onmouseover=function(){
+                        oTips.style.display="block";
+                        oTips.style.top=this.offsetTop+this.scrollTop+'px';
+                        oTips.style.left=oCon.offsetLeft+this.offsetWidth+10+'px';
+                        h4.innerHTML = obj.list[this.index].company;
+                        p1.innerHTML = obj.list[this.index].recruitingNumbers;
+                        p2.innerHTML = obj.list[this.index].workingLocation;
+                        p3.innerHTML = obj.list[this.index].workExperience;
+                        p4.innerHTML = obj.list[this.index].education;
+                        p5.innerHTML = obj.list[this.index].wage;
+                        p6.innerHTML = obj.list[this.index].addDate;
+                        oTips.appendChild(h4);
+                        oTips.appendChild(p1);
+                        oTips.appendChild(p2);
+                        oTips.appendChild(p3);
+                        oTips.appendChild(p4);
+                        oTips.appendChild(p5);
+                        oTips.appendChild(p6);
+                    }
+                    a.onmouseout=function(){
+                        oTips.style.display="none";
+                    }
+                }
+                oDiv.appendChild(ul);
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="container">
+    <ul id="header"></ul>
+    <div id="listContent"></div>
+</div>
+<div id="tips"></div>
+</body>
+
+</html>

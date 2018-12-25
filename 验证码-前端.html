@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <title></title>
+    <style>
+        .inner{
+            position: absolute;
+            margin-top: 20px;
+            left: 50%;
+            transform: translate(-50%,0);
+        }
+        .inner input{
+            display: inline-block;
+            width: 150px;
+            height: 30px;
+            border:1px solid #ccc;
+            padding-left:12px ;
+        }
+        #grey{
+            display: inline-block;
+            width: 88px;
+            margin: 0 5px;
+            background-color: #999;
+            color: white;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        #grey:hover{
+            cursor: pointer;
+        }
+        #grey p{
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 5px;
+        }
+        #button{
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            background-color: #499990;
+            color: white;
+            font-size: 14px;
+            border: 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="inner">
+    <input id="text" type="text" placeholder="请输入验证码"/><div id="grey">
+        <p id="inner_p">1234</p>
+    </div><button id="button">验证</button>
+</div>
+
+<script type="text/javascript">
+    var oP=document.getElementById("inner_p");
+    var oBtn=document.getElementById("button");
+    var oText=document.getElementById("text");
+    function generateRandom(n){
+        var char=['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+        var res="";
+        for(var i=0;i<n;i++){
+            var index=Math.ceil(Math.random()*35);
+            res+=char[index];
+        }
+        return res;
+    }
+    function putInner(){
+        var c=generateRandom(4);
+        oP.innerHTML=c;
+    }
+    putInner();
+    oP.onclick=function(){
+        putInner();
+    }
+    oBtn.onclick= function () {
+        console.log(oText.value);
+        if(oText.value==""){
+            alert("please input yanzhengma!");
+            putInner();
+        }
+        else{
+            if(oP.innerHTML.toLocaleLowerCase() != oText.value.toLocaleLowerCase()){
+                alert("yanzhengma is wrong!");
+                putInner();
+            }
+            else{
+                alert("correct!");
+            }
+        }
+    }
+</script>
+</body>
+</html>

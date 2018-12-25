@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <title></title>
+    <style>
+        #wrapper{
+            width: 800px;
+            height: 700px;
+            padding: 50px 100px;
+            left: 0;
+            top: 0;
+            background-color: #ccc;
+            position: relative;
+        }
+        #content{
+            width: 480px;
+            height: 360px;
+            background-color: white;
+            color: black;
+            font-size: 14px;
+            padding:30px;
+            line-height: 1.5rem;
+        }
+        .select-box{
+            width: 450px;
+            height: 140px;
+            margin-top: 10px;
+            border: 15px solid #666;
+            padding: 5px 10px;
+        }
+        #title li{
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 16px;
+            color: black;
+            text-align: center;
+        }
+        #title li:hover{
+            cursor: pointer;
+        }
+        #title .chosed{
+            border-radius: 2px;
+            color: white;
+            background-color: #FF6600;
+        }
+        .divide-line{
+            height: 2px;
+            background-color: #ff6600;
+        }
+        #rightBox{
+            position: absolute;
+            right: 100px;
+            top: 50px;
+        }
+        #rightBox li{
+            display: block;
+            width: 60px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            color: white;
+            background-color: #aaa;
+            font-size: 16px;
+            border-radius: 5px;
+            display: none;
+        }
+        #rightBox li:hover{
+            cursor: pointer;
+            background-color: #ff6600;
+        }
+        #rightBox li:first-child{
+            background-color: #999;
+            display: block;
+        }
+        .tihuan{
+            display: none;
+        }
+        span{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <p id="content">1969年1月，我到文安驿公社接北京知青。就是在这个时候，我第一次见到了近平。当时，梁家河派了十几个年轻力壮的社员去接知青。怕人手不够，我们还牵了毛驴，帮着驮行李。知青们的行李有铺盖卷，有箱子，我们轮流帮着拿行李，你拿一气儿，我拿一气儿，几十个人，浩浩荡荡地就回到村里来了。我记得很清楚，当时梁家河村一共来了十五名北京知青，十一名男知青，四名女知青。当时梁家河村委会接待室是一队的地方，分来五名男知青，四名女知青；近平和其余五名男知青在后面的二队。村里当时安排我父亲给二队的知青做饭</p>
+    <div class="select-box">
+        <ul id="title">
+            <li class="chosed">查找</li><li>替换</li>
+        </ul>
+        <div class="divide-line"></div>
+        <ul id="ul2">
+            <li class="search">
+                <input type="text"/>
+                <button id="sear">查找</button>
+            </li>
+            <li class="tihuan">
+                <input type="text">
+                <input type="text">
+                <button id="tihu">替换</button>
+            </li>
+        </ul>
+    </div>
+    <ul id="rightBox">
+      <li>展开</li><li>查找</li><li>替换</li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    var oRight=document.getElementById("rightBox");
+    var lis=oRight.getElementsByTagName("li");
+    var ul1=document.getElementById("title");
+    var ul2=document.getElementById("ul2");
+    var search=document.getElementById("sear");
+    var tihuan=document.getElementById("tihu");
+    lis[0].onclick= function () {
+        for(var i=1;i<lis.length;i++){
+            lis[i].style.display="block";
+        }
+    }
+
+    var lis1=ul1.getElementsByTagName("li");
+    var lis2=ul2.getElementsByTagName("li");
+    for(var i=0;i<lis1.length;i++){
+        lis1[i]["index"]=i;
+        lis1[i].onclick=function(){
+            for(var j=0;j<lis1.length;j++){
+                lis1[j].className="";
+                lis2[j].style.display="none";
+            }
+            lis1[this.index].className="chosed";
+            lis2[this.index].style.display="block";
+        }
+    }
+    //js字符串操作函数
+    var text=document.getElementById("content");
+
+    search.onclick= function () {
+        var parent=this.parentNode;
+        var inputText=parent.getElementsByTagName('input')[0].value;
+        console.log(text.innerHTML);
+        console.log(inputText);
+        if(text.innerHTML.indexOf(inputText) == -1){
+            alert('not found!');
+            return;
+        }
+        else if(inputText==""){
+            alert("is null!");
+            return;
+        }
+        text.innerHTML=text.innerHTML.split(inputText).join("<span>"+inputText+"</span>");
+    }
+    tihuan.onclick= function () {
+        var parent=this.parentNode;
+        var inputText=parent.getElementsByTagName("input")[0].value;
+        var alterText=parent.getElementsByTagName("input")[1].value;
+        if(text.innerHTML.indexOf(inputText) == -1){
+            alert('not found!');
+            return;
+        }
+        else if(inputText==""){
+            alert("is null!");
+            return;
+        }
+        text.innerHTML=text.innerHTML.split(inputText).join("<span>"+alterText+"</span>");
+    }
+</script>
+</body>
+</html>

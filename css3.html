@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <title>H5</title>
+    <style>
+        /*body { background: #eee; }
+        @keyframes mysnow {
+            0% { bottom: 100%; opacity: 0; }
+            50% { opacity: 1; transform: rotate(720deg);}
+            100% { transform: rotate(0deg); opacity: 0; bottom: 0%;}
+        }
+        .container { position: fixed; }
+        .pic { position: absolute; animation: mysnow 5s;height: 30px; }*/
+
+        body{
+            background-color: #ccc;
+        }
+        .container{
+            position: fixed;
+        }
+        .pic{
+            position: absolute;
+            animation:mysnow 5s ease;
+            height: 30px;
+            display: block;
+        }
+        @keyframes mysnow{
+            0%{
+                bottom: 100%;
+                opacity: 0;
+            }
+            50%{
+                opacity: 1;
+            }
+            100%{
+                transform: rotate(720deg);
+                opacity: 0;
+                bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<style>
+
+</style>
+
+<div id="snowFlow" >
+
+</div>
+
+<script type="text/javascript">
+    /*window.onload = function(){
+        // snowFlow();
+        function snowFlow(left,height,src){
+            var container=document.createElement('div');
+            var pic=document.createElement('img');
+            var snowFlow=document.getElementById('snowFlow');
+            pic.className='pic';
+            container.className='container';
+            snowFlow.appendChild(container);
+            container.appendChild(pic);
+            container.style.left=left+'px';
+            container.style.height=height+'px';
+            pic.src=src;
+            setTimeout(function(){
+                snowFlow.removeChild(container);
+            },5000);
+        }
+        setInterval(function(){
+            var left=Math.random()*window.innerWidth;
+            var height=Math.random()*window.innerHeight;
+            var src = './images/snow.png';
+            snowFlow(left,height,src);
+        },500)
+
+    }*/
+    window.onload= function () {
+        function snowFlow(left,height,src){
+            var container=document.createElement('div');
+            var pic=document.createElement('img');
+            var snowFlow=document.getElementById('snowFlow');
+            pic.className='pic';
+            container.className='container';
+            snowFlow.appendChild(container);
+            container.appendChild(pic);
+            pic.style.left=left+'px';
+            container.style.height=height+'px';
+            pic.src=src;
+            setTimeout(function () {
+                snowFlow.removeChild(container);
+        },5000)
+        }
+        setInterval(function(){
+            var left=Math.random()*window.innerWidth;
+            var height=Math.random()*window.innerHeight;
+            var src='./images/snow.png';
+            snowFlow(left,height,src);
+        },500)
+    }
+</script>
+</body>
+</html>

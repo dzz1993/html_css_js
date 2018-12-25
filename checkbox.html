@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <title></title>
+    <style>
+        dl{
+            width: 130px;
+            margin: 20px auto;
+            border: 1px solid #333;
+            border-radius: 5px;
+            text-align: center;
+            padding: 10px 20px;
+            background: #f2f2f2;
+            font-size: 16px;
+        }
+        dt{
+            line-height: 40px;
+            height: 40px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        dd{
+            line-height: 35px;
+            text-align: center;
+        }
+        dd p{
+            height: 35px;
+        }
+        .info{
+            width: 475px; line-height: 2em; text-align: center; font-size: 12px; background: #f2f2f2; margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<dl>
+    <dt>
+        <input id="checkAll" type="checkbox"/>　<label id="label">全选</label> <a href="javascript:" id="checkReverse">　反选</a>
+    </dt>
+    <dd id="innerDd">
+        <p><input type="checkbox" /> &nbsp;&nbsp;选项（一）</p>
+        <p><input type="checkbox" />　选项（二）</p>
+        <p><input type="checkbox"/>　选框（四） </p>
+        <p><input type="checkbox"/>　选框（五） </p>
+        <p><input type="checkbox"/>　选框（六） </p>
+        <p><input type="checkbox"/>　选框（七） </p>
+        <p><input type="checkbox"/>　选框（八） </p>
+        <p><input type="checkbox"/>　选框（九） </p>
+        <p><input type="checkbox"/>　选框（十） </p>
+    </dd>
+</dl>
+<div class="info">1、切换全选/全不选文字；2、根据选中个数更新全选框状态；</div>
+<script type="text/javascript">
+    var oAll=document.getElementById("checkAll");
+    var oReverse=document.getElementById("checkReverse");
+    var oDd=document.getElementById("innerDd");
+    var input=oDd.getElementsByTagName("input");
+    var label=document.getElementById("label");
+    oAll.onclick=function(){
+        for(var i=0;i<input.length;i++){
+            input[i].checked=this.checked;
+        }
+    }
+    oReverse.onclick=function(){
+        for(var i=0;i<input.length;i++){
+            input[i].checked=!input[i].checked;
+        }
+        if(judgeAll()){
+            oAll.checked=!oAll.checked;
+        }
+        getInner();
+    }
+    function judgeAll(){
+        var allTrue=true;
+        var allFalse=false;
+        for(var i=0;i<input.length;i++){
+            allTrue=allTrue && input[i].checked;
+        }
+        for(var i=i=0;i<input.length;i++){
+            allFalse=allFalse || input[i].checked;
+        }
+        if(allTrue == true || allFalse == false){
+            return true;
+        }
+        return false
+    }
+    function checkNumber(){
+        var n=0;
+        for(var i=0;i<input.length;i++){
+            if(input[i].checked){
+                n++;
+            }
+        }
+        return n;
+    }
+    function getInner(){
+        if(oAll.checked){
+            label.innerHTML="全不选";
+        }
+        else{
+            label.innerHTML="全选";
+        }
+    }
+    for(var i=0;i<input.length;i++){
+        input[i].index=i;
+        input[i].onclick=function(){
+            var n=checkNumber();
+            if(this.checked && n==1){
+                oAll.checked=false;
+                getInner();
+            }
+            if(!this.checked && input.length==n+1){
+                oAll.checked=false;
+                getInner();
+            }
+            if(judgeAll()){
+                oAll.checked=!oAll.checked;
+                getInner();
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>原生的方法写一个轮播框</title>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        a{
+            text-decoration: none;
+        }
+        .container{
+            position: relative;
+            width: 990px;
+            height: 570px;
+            margin:100px auto 0px auto;
+            overflow: hidden;
+            box-shadow:0 0 5px green;
+        }
+        .wrapper{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 1;
+            width:3960px;
+            max-height: 570px;
+        }
+        .wrapper img{
+            float: left;
+            width: 990px;
+            height: 570px;
+        }
+        .buttons{
+            position: absolute;
+            bottom: 20px;
+            right: 100px;
+            width: 120px;
+            height: 20px;
+            z-index: 2;
+        }
+        .buttons span{
+            margin-left: 4px;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: green;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+        }
+        .buttons .on{
+            background-color: red;
+        }
+        .arrow{
+            position: absolute;
+            top: 35%;
+            font-size: 50px;
+            color: #000;
+            z-index: 2;
+            display: none;
+            padding:0 14px;
+            border-radius: 50%;
+        }
+        .left-arrow{
+            left: 5%;
+        }
+        .right-arrow{
+            right: 5%;
+        }
+        .container:hover .arrow{
+            display: block;
+        }
+        .container .arrow:hover{
+            background-color: rgba(0,0,0,0.6);
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="wrapper">
+        <img src="images/card1.jpg"/>
+        <img src="images/card2.jpg"/>
+        <img src="images/card3.jpg"/>
+        <img src="images/card4.jpg"/>
+    </div>
+    <div class="buttons">
+        <span class="on">1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+    </div>
+    <a href="#" class="arrow left-arrow"><</a>
+    <a href="##" class="arrow right-arrow">></a>
+</div>
+<div class="img-container">
+
+</div>
+<div class="btn-container">
+
+</div>
+<script type="text/javascript">
+var index=0;
+var newLeft=0;
+function showDots(){
+    var dots=$(".buttons span");
+    for(var i=0;i<dots.length;i++){
+        dots[i].className="";
+    }
+    dots[index].className="on";
+}
+function next_pic(){
+    if($(".wrapper").css('left')=='-2970px'){
+        newLeft=0;
+    }
+    else{
+        newLeft=parseInt($(".wrapper").css("left"))-990;
+    }
+    //$(".wrapper").css('left',newLeft);
+    $(".wrapper").animate({"left":newLeft},1000);
+    index++;
+    if(index==$(".buttons span").length){
+        index=0;
+    }
+    showDots();
+}
+
+function pre_pic(){
+    if($(".wrapper").css('left')=='0'){
+        newLeft=-2970;
+    }
+    else{
+        newLeft=parseInt($(".wrapper").css("left"))+990;
+    }
+    //$(".wrapper").css('left',newLeft);
+    $(".wrapper").animate({"left":newLeft},1000);
+    index--;
+    if(index<0){
+        index=$(".buttons span").length-1;
+    }
+    showDots();
+}
+var timer1=null;
+function auto_start(){
+    timer1=setInterval(function(){
+        next_pic();
+    },3000);
+}
+auto_start();
+
+$(".container").on("mouseover",function(){
+    clearInterval(timer1);
+})
+
+$(".container").on("mouseout",auto_start);
+$(".left-arrow").on("click",pre_pic);
+$(".right-arrow").on("click",next_pic);
+
+$(".buttons span").on("click",function(){
+    var left=$(this).index();
+    index=left;
+    newLeft=left*(-990);
+    //$(".wrapper").css('left',newLeft);
+    $(".wrapper").animate({"left":newLeft},1000);
+    showDots();
+})
+
+function storageText(){
+    if(!localStorage['pagename']){
+        localStorage.pagename="carousel";
+    }
+    if(!sessionStorage['pagename']){
+        sessionStorage.pagename="carousel";
+    }
+    console.log("carousel");
+    console.log(localStorage['pagename']);
+    console.log(sessionStorage['pagename']);
+}
+storageText();
+</script>
+</body>
+</html>

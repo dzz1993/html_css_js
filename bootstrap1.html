@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <!--栅格 表单 按钮 按钮组 导航 导航栏 面板 伸缩-->
+    <title>bootstrap1</title>
+    <style>
+        .wrapper{
+            width: 80%;
+            margin: 0 auto;
+        }
+        .grey333{
+            background-color: #333;
+        }
+        .grey666{
+            background-color: #666;
+        }
+        .height100{
+            height: 100px;
+        }
+        .user-radio{
+            font-size: 20px;
+            margin: 0 auto;
+        }
+        .user-radio input{
+            margin-top: 8px;
+        }
+        .user-radio h3{
+            font-weight: bold;
+        }
+        .nav-stacked li{
+            text-align: center;
+        }
+        .nav{
+            margin-top: 10px;
+        }
+        .navbar-nav{
+            margin-top: 0;
+        }
+        .my-active{
+            border-bottom: 2px solid dodgerblue;
+        }
+        .tab-content>div{
+            width: 80%;
+            height: 200px;
+            margin: 10px auto;
+        }
+        .tab-content>div:nth-child(1){
+            background-color: yellow;
+        }
+        .tab-content>div:nth-child(2){
+            background-color: blue;
+        }
+        .tab-content>div:nth-child(3){
+            background-color: grey;
+        }
+        .tab-content>div:nth-child(4){
+            background-color: green;
+        }
+        .panel-title{
+            text-align: center;
+        }
+        .panel-title:hover{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body style="overflow-x:hidden;">
+<!--navbar组写一个不可折叠的框-->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="wrapper">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="###">网站headline</a>
+        </div>
+        <div class="col-xs-offset-3">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="active"><a href="###">首页</a></li>
+                <li><a href="###">产品</a></li>
+                <li><a href="###">联系我们</a></li>
+            </ul>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="###">登陆</a></li>
+            <li><a href="###">注册</a></li>
+        </ul>
+        <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="搜索栏目">
+            </div>
+            <button type="submit" class="btn btn-primary">搜索</button>
+        </form>
+
+    </div>
+</nav>
+<!--响应式主导航-->
+<nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
+            <div class="icon-bar"></div>
+            <div class="icon-bar"></div>
+            <div class="icon-bar"></div>
+        </button>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse2">
+            <div class="icon-bar"></div>
+            <div class="icon-bar"></div>
+            <div class="icon-bar"></div>
+        </button>
+        <a href="#" class="navbar-brand">公司名称</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse1" style="float: left">
+        <ul class="nav navbar-nav navbar-left">
+            <li class="active"><a href="#">首页</a></li>
+            <li><a href="#">产品</a></li>
+            <li><a href="#">联系我们</a></li>
+        </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse2" style="float: right">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">注册</a></li>
+            <li><a href="#">登陆</a></li>
+        </ul>
+    </div>
+
+
+</nav>
+
+
+
+
+<div class="wrapper clearfix">
+    <!--栅格-->
+    <div class="col-xs-2 col-sm-12 col-md-6 grey333 height100"></div>
+    <div class="col-xs-10 col-sm-12 col-md-6 grey666 height100"></div>
+    <form role="form" class="col-md-4 col-md-offset-4">
+        <div class="form-group form-inline">
+            <label for="name">姓名：</label>
+            <input id="name" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="content">内容：</label>
+            <textarea id="content" rows="4" class="form-control"></textarea>
+        </div>
+        <div class="form-group form-inline">
+            <label for="sex">性别：</label>
+            <select id="sex" class="form-control">
+                <option>男</option>
+                <option>女</option>
+            </select>
+        </div>
+        <!--复选框或单选框，以checkbox为例每一个checkbox外部加一个class为checkbox或checkbox-inline的div-->
+        <div class="form-group">
+            <label class="checkbox-inline"><input type="checkbox">checkbox1 </label>
+            <label class="checkbox-inline"><input type="checkbox">checkbox2 </label>
+        </div>
+
+        <div class="checkbox"><label ><input type="checkbox">checkbox1 </label></div>
+        <div class="checkbox"><label ><input type="checkbox">checkbox2 </label></div>
+        <!--radio 必须在input中搭配name才有效-->
+        <div class="form-group">
+            <label class="radio-inline"><input type="radio" name="radio1">男 </label>
+            <label class="radio-inline"><input type="radio" name="radio1">女 </label>
+        </div>
+
+        <div class="radio"><label><input type="radio" name="radio2">男 </label></div>
+        <div class="radio"><label><input type="radio" name="radio2">女 </label></div>
+
+        <!--样式的简单定制-->
+        <div class="user-radio form-group">
+            <h3>性别:</h3>
+            <label class="radio-inline"><input type="radio" name="radio1">男 </label>
+            <label class="radio-inline"><input type="radio" name="radio1">女 </label>
+        </div>
+        <!--内嵌下拉菜单按钮组,这个必须引入bootstrap的js文件-->
+        <div class="btn-group">
+            <button class="btn btn-primary">button</button>
+            <button class="btn btn-primary">button</button>
+            <div class="btn-group">
+                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">button <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="javascript:">item1</a></li>
+                    <li><a href="javascript:">item2</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--分隔按钮效果-->
+        <div class="btn-group">
+            <button class="btn btn-primary">下拉菜单</button>
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> <span class="caret"></span> </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="javascript:">item1</a></li>
+                <li><a href="javascript:">item2</a></li>
+            </ul>
+        </div>
+        <!--导航 两类（nav-tabs/nav-pills）三种(nav-tabs/nav-pills/nav-pills nav-stacked)-->
+        <!--nav-tabs-->
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="javascript:">menu1</a></li>
+            <li><a href="javascript:">menu2</a></li>
+            <li><a href="javascript:">menu3</a></li>
+            <li><a href="javascript:">menu4</a></li>
+        </ul>
+        <!--nav-pills-->
+        <ul class="nav nav-pills">
+            <li class="active"><a href="javascript:">menu1</a></li>
+            <li><a href="javascript:">menu2</a></li>
+            <li><a href="javascript:">menu3</a></li>
+            <li><a href="javascript:">menu4</a></li>
+        </ul>
+        <!--nav-pills nav-stacked-->
+        <div class="row">
+            <ul class="col-xs-4 nav nav-pills nav-stacked">
+                <li class="active"><a data-toggle="pill" href="#item0">yellow</a></li>
+                <li><a data-toggle="pill" href="#item1">blue</a></li>
+                <li><a data-toggle="pill" href="#item2">grey</a></li>
+                <li><a data-toggle="pill" href="#item3">green</a></li>
+            </ul>
+            <div class="col-xs-6 tab-content">
+                <div class="tab-pane fade in active" id="item0"></div>
+                <div class="tab-pane fade" id="item1"></div>
+                <div class="tab-pane fade" id="item2"></div>
+                <div class="tab-pane fade" id="item3"></div>
+            </div>
+        </div>
+        <!--nav-justified-->
+        <ul class="nav nav-tabs nav-justified">
+            <li class="active"><a href="javascript:">menu1</a></li>
+            <li><a href="javascript:">menu2</a></li>
+            <li><a href="javascript:">menu3</a></li>
+            <li><a href="javascript:">menu4</a></li>
+        </ul>
+        <!--nav+menu-->
+        <ul class="nav nav-tabs">
+            <li><a href="javascript:">menu1</a></li>
+            <li><a href="javascript:">menu2</a></li>
+            <li><a href="javascript:">menu3</a></li>
+            <li><a class="dropdown-toggle" data-toggle="dropdown">menu4
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="javascript:">menu</a></li>
+                    <li><a href="javascript:">menu</a></li>
+                    <li><a href="javascript:">menu</a></li>
+                </ul>
+            </a></li>
+        </ul>
+        <!--给nav-pills定制类似于layui样式-->
+        <ul class="nav nav-pills nav-justified col-xs-6 col-xs-offset-3">
+            <li class="my-active"><a href="javascript:">item1</a></li>
+            <li><a href="javascript:">item1</a></li>
+            <li><a href="javascript:">item1</a></li>
+        </ul>
+
+        <!--panel面板-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    面板
+                </div>
+            </div>
+            <div class="panel-body">
+                面板内容
+            </div>
+        </div>
+        <!--折叠插件1、单纯实现折叠效果，指定按钮data-toggle="collapse" data-target="#id"(或者href) 指定目标class="collapse" +id-->
+        <button data-toggle="collapse" data-target="#collapse1" class="btn btn-primary btn-block">点击折叠/打开</button>
+        <div class="collapse-content collapse" id="collapse1">
+            content
+        </div>
+        <!--折叠插件2、加上一个父组件（多个折叠包裹一个父div），指定id，每个子按钮出来data-toggle="collapse"和data-target="id"外，给一个data-parent="id"-->
+        <div class="panel-group" id="data-parent">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div data-toggle="collapse" data-target="#collapse2" data-parent="#data-parent" class="panel-title">标题1</div>
+                </div>
+                <div class="panel-collapse collapse in" id="collapse2">
+                    <div class="panel-body">内容1</div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title" data-toggle="collapse" data-target="#collapse3" data-parent="#data-parent">标题2</div>
+                </div>
+                <div class="collapse panel-collapse" id="collapse3">
+                    <div class="panel-body">内容2</div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title" data-toggle="collapse" data-target="#collapse4" data-parent="#data-parent">标题3</div>
+                </div>
+                <div class="collapse panel-collapse" id="collapse4">
+                    <div class="panel-body">内容3</div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--分页-->
+    <div class="pagination">
+        <li><a href="#">prev</a></li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">next</a></li>
+    </div>
+    <!--分页2-->
+
+    <div class="wrapper">
+        <div class="warn alert alert-warning fade">
+            <strong>警告！</strong>这是一个警告框！
+            <a class="close" href="#" data-dismiss="alert">
+                &times;
+            </a>
+        </div>
+        <button id="btn1" class="btn btn-block">
+            启动/开启警告栏
+        </button>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <td>HEAD1</td>
+        <td>HEAD2</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>content1-line1</td>
+        <td>content2-line1</td>
+    </tr>
+    <tr>
+        <td>content1-line2</td>
+        <td>content2-line2</td>
+    </tr>
+    <tr>
+        <td>content1-line1</td>
+        <td>content2-line1</td>
+    </tr>
+    <tr>
+        <td>content1-line2</td>
+        <td>content2-line2</td>
+    </tr>
+    </tbody>
+</table>
+<div class="container">
+    <div class="row height100">
+        <div class="col-xs-6 grey333">
+            111
+        </div>
+        <div class="col-xs-6 grey666">
+            222
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row height100">
+        <div class="col-xs-6 grey333">
+            111
+        </div>
+        <div class="col-xs-6 grey666">
+            222
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var flag=0;
+    $("#btn1").click(function () {
+        if(flag==1){
+            $(".alert").alert("close");
+            flag=0;
+        }
+        else{
+            $(".warn").addClass("in");
+            flag=1;
+        }
+    })
+</script>
+</body>
+</html>

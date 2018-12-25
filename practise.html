@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <title>Document</title>
+    <style type="text/css">
+        @font-face{
+			font-family:"me";
+			src:url("font/FZLSJW.TTF") format('truetype');
+		}
+		.font{
+			font-family:"me";
+			font-size:16px;
+		}
+		.font-me:before{
+			content:"我的";
+		}
+		*{
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        .divGroup{
+            width:460px ;
+            height:100px;
+            margin:20px auto 0 auto;
+            box-shadow: 0 0 5px green;
+        }
+        .divGroup div{
+            display: inline-block;
+            width: 98px;
+            height: 98px;
+            border: 1px solid #cccccc;
+            margin-left: 20px;
+            vertical-align: middle;
+            line-height:98px;
+        }
+        .divGroup div:first-child{
+            margin-left:0;
+        }
+        .divGroup .divon{
+            background-color: #666666;
+        }
+        .spanGroup{
+            width: 140px;
+            height: 20px;
+            margin:20px auto 0 auto;
+            box-shadow: 0 0 5px red;
+        }
+        .spanGroup span{
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-left:20px;
+            background-color: red;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .spanGroup span:first-child{
+            margin-left:0;
+        }
+        .spanGroup .spanon{
+            background-color: green;
+        }
+        .divon{
+            background-color: #666666;
+        }
+        .spanon{
+            background-color: green;
+        }
+        .outer{
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            background-color: #cccccc;
+        }
+        .inner{
+            width: 100px;
+            height: 100px;
+            background: #A1CCFE;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            line-height: 100px;
+        }
+        .small_pic{
+            width: 100px;
+        }
+        .bigpic_div{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            vertical-align: middle;
+            display: none;
+            background-color: rgba(0,0,0,0.6);
+        }
+        .bigpic_div .big_pic{
+            margin-top: 10%;
+            max-height: 80%;
+        }
+        .img-background{
+            padding-right: 20px;
+            padding-bottom: 20px;
+            border: 1px solid #cccccc;
+            background-image: url(./images/arrow.png);
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .outer-div{
+            position:relative;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            box-shadow: 0 0 2px red;
+        }
+        .inner-div2, .inner-span2{
+            position: absolute;
+            top: 50px;
+            border: 1px solid red;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            transform: translate(0,-50%);
+        }
+        .inner-img{
+            position: absolute;
+            top: 0px;
+            bottom: 0px;
+            margin: auto;
+        }
+        .outer-div2{
+            width: 100px;
+            height: 100px;
+            box-shadow: 0 0 2px red;
+            line-height: 100px;
+        }
+        .inner-img2{
+            vertical-align: middle;
+        }
+        .run{
+            position: relative;
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            box-shadow: 0 0 5px red;
+        }
+        .color-div{
+            height: 60px;
+        }
+        .color-div .color{
+            display: inline-block;
+            height: 60px;
+            width: 60px;
+            color: white;
+        }
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color: green;
+        }
+        .blue{
+            background-color: blue;
+        }
+        .yellow{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div class="divGroup">
+    <div class="div-member div1 divon">
+    </div><div class="div-member div2"><i class="font font-me"></i>
+    </div><div class="div-member div3">
+	<i class="font">我的</i>
+    </div><div class="div-member div4"></div></div>
+<div class="spanGroup">
+    <span class="span-member span1 spanon">
+    </span><span class="span-member span2">
+    </span><span class="span-member span3">
+    </span><span class="span-member span4"></span>
+</div>
+<form id="text_form">
+    <input type="text" name="first" placeholder="first"/>
+    <select class="sel1">
+        <option>male</option>
+        <option>female</option>
+    </select>
+</form>
+<div class="ontext">default</div>
+<div class="intext">default2</div>
+<img src="images/card1.jpg" class="small_pic"/>
+<div>divide</div>
+<div class="bigpic_div">
+    <img src="" class="big_pic"/>
+</div>
+<div class="outer-div">
+    <div class="inner-div">aaa</div>
+</div>
+<div class="outer-div">
+    <span class="inner-span">bbb</span>
+</div>
+<div class="outer-div">
+    <div class="inner-div2">
+    </div>
+</div>
+<div class="outer-div">
+    <span class="inner-span2">
+    </span>
+</div>
+<div class="outer-div">
+        <img class="inner-img" src="images/arrow.png"/>
+</div>
+<div class="outer-div2">
+    aa<img class="inner-img2" src="images/arrow.png"/>aa
+</div>
+<div class="checkbox-div">
+    <label><input type="checkbox">first</label>
+    <label><input type="checkbox">second</label>
+    <label><input type="checkbox">third</label>
+    <label><input type="checkbox">forth</label>
+</div>
+<input type="button" value="reverse" class="reverse-div">
+<span class="run run1"></span>
+<span class="run run2"></span>
+<button class="btn1">1前进100</button>
+<button class="btn2">1前进200</button>
+<div class="color-div">
+    <span class="color red">red
+    </span><span class="color green">green
+    </span><span class="color yellow">yellow
+    </span><span class="color blue">blue</span>
+</div>
+<button class="reverse-btn">reverse</button>
+<button class="stop-btn">stop</button>
+<style>
+    .flex{
+        display: flex;
+    }
+    .flex1{
+        min-height: 100px;
+        background-color: #ccc;
+        flex-grow: 1;
+    }
+    .flex3{
+        min-height: 100px;
+        background-color: #999;
+        flex-grow:3;
+    }
+</style>
+<div class="flex flex-grow-test">
+    <div class="flex1"></div>
+    <div class="flex3"></div>
+    <div class="flex1"></div>
+</div>
+<script type="text/javascript">
+    $(".reverse-div").click(function(){
+        $(".checkbox-div input").each(function(){
+            $(this).prop("checked",!$(this).prop("checked"));
+        })
+    })
+    $(".spanGroup span").click(function(){
+        var index=$(this).index();
+        //$(this).siblings().removeClass("spanon");
+        $(".divGroup div").removeClass("divon").eq(index).addClass("divon");
+        $(this).addClass("spanon").siblings().removeClass("spanon");
+    })
+    $(".sel1").change(function(){
+        var first=$("#text_form").find("input[name='first']").val();
+        var sel=$(".sel1 option:selected").val();
+        $(".ontext").text("first:"+first+",selection:"+sel);
+        document.getElementsByClassName("intext")[0].innerHTML="first:"+first+",selection:"+sel;
+    })
+    $(".small_pic").click(function(){
+        var pic_src=$(this).attr('src');
+        if(pic_src!=null && pic_src!='' && pic_src!=undefined){
+            $(".big_pic").attr('src',pic_src);
+        }
+        $(".bigpic_div").fadeIn(300);
+    })
+    $(".bigpic_div").click(function(){
+        $(this).fadeOut(300);
+    })
+    $(".btn1").on("click",function(){
+        $(".run1").animate({left:100},1000);
+        //alert($(".run1").css("left"));
+    })
+    $(".btn2").on("click",function(){
+        $(".run1").animate({left:200},1000);
+    })
+    function rollColor(flag){
+        if(flag==0){
+            $(".color-div span").last().after($(".color-div span").first());
+        }
+        else{
+            $(".color-div span").first().before($(".color-div span").last());
+        }
+    }
+    var timer1=null;
+    function startRollColor(flag){
+        timer1=setInterval(function(){
+            if(flag==0){
+                rollColor(0);
+                console.log("flag="+flag);
+            }
+            else{
+                rollColor(1);
+                console.log("flag="+flag);
+            }
+        },2000);
+    }
+    var reverseFlag=0;
+    startRollColor(reverseFlag);
+    $(".reverse-btn").click(function(){
+        if(reverseFlag==0){
+            reverseFlag=1;
+            console.log("flag="+reverseFlag);
+        }
+        else{
+            reverseFlag=0;
+            console.log("flag="+reverseFlag);
+        }
+        clearInterval(timer1);
+        startRollColor(reverseFlag);
+    })
+    $(".stop-btn").click(function(){
+        clearInterval(timer1);
+    })
+    function storageText(){
+        if(!localStorage['pagename']){
+            localStorage.pagename="practise";
+        }
+        if(!sessionStorage['pagename']){
+            sessionStorage.pagename="practise";
+        }
+        console.log("practise:");
+        console.log(localStorage['pagename']);
+        console.log(sessionStorage['pagename']);
+    }
+    storageText();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <title>bootstrap2</title>
+    <style>
+        .layout-common{
+            margin-top:20px;
+            margin-bottom: 30px;
+        }
+        .layout-left{
+            min-height: 100px;
+            background-color: #ccc;
+            width: 200px;
+        }
+        .layout-right{
+            min-height: 100px;
+            background-color: #ddd;
+            width: 200px;
+        }
+        .layout-middle{
+            min-height: 100px;
+            background-color: #999;
+            color: white;
+        }
+        .layout-flex{
+            display: flex;
+            margin-top: 400px;
+        }
+    </style>
+</head>
+<body>
+<section class="layout-common layout-float">
+    <style>
+        .layout-common.layout-float .layout-left{
+            float: left;
+        }
+        .layout-common.layout-float .layout-right{
+            float: right;
+        }
+        .layout-common.layout-float .layout-middle{
+            overflow: hidden;
+        }
+    </style>
+    <div class="layout-left"></div>
+    <div class="layout-right"></div>
+    <div class="layout-middle">
+        <h1>固比固布局的float方法</h1>
+        <P>这种方法的缺点是当中间内容超过浮动内容</P>
+        <p>内容会占据整行的宽度</p>
+        <p>原理很好理解，所以这个不太适用</p>
+        <p>很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，</p>
+    </div>
+</section>
+
+<section class="layout-common layout-absolute">
+    <style>
+        .layout-common.layout-absolute .layout-left{
+            position: absolute;
+            left: 0;
+        }
+        .layout-common.layout-absolute .layout-right{
+            position: absolute;
+            right: 0;
+        }
+        .layout-common.layout-absolute .layout-middle{
+            position: absolute;
+            left: 200px;
+            right: 200px;
+        }
+    </style>
+    <div class="layout-left"></div>
+    <div class="layout-middle">
+        <h1>固比固布局的absolute方法</h1>
+        <P>这种方法的缺点是</P>
+        <p>absolute的通病，不占据文档流啊</p>
+        <p>原理很好理解，所以这个不太适用</p>
+        <p>很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，</p>
+    </div>
+    <div class="layout-right"></div>
+</section>
+
+<section class="layout-common layout-flex">
+    <style>
+        .layout-common.layout-flex .layout-left{
+            width: 200px;
+        }
+        .layout-common.layout-flex .layout-right{
+            width: 200px;
+        }
+        .layout-common.layout-flex .layout-middle{
+            flex: 1;
+        }
+    </style>
+    <div class="layout-left"></div>
+    <div class="layout-middle">
+        <h1>固比固布局的flex方法</h1>
+        <p>很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，很长的占位文字，</p>
+    </div>
+    <div class="layout-right"></div>
+</section>
+
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

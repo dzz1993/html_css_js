@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <title></title>
+    <style>
+        body{
+            margin: 0;
+            margin: 0;
+            background-color: #ccc;
+        }
+        #round{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 1px solid #fff;
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+<div id="round">
+
+</div>
+
+<script type="text/javascript">
+    var round=document.getElementById("round");
+    var clientHeight=document.documentElement.clientHeight||document.body.clientHeight;
+    var clientWidth=document.documentElement.clientWidth||document.body.clientWidth;
+    var timer1=null;
+
+    document.onkeydown=function(e){
+        clearInterval(timer1);
+        timer1=setInterval(function(){
+            var roundLeft=round.offsetLeft;
+            var roundTop=round.offsetTop;//getBoundingClientRect() is ok
+            var roundWidth=round.style.width;
+            var roundHeight=round.style.height;
+            var event=e||window.event;
+            switch(event.keyCode){
+                case 37:
+                    if(roundLeft>roundWidth){
+                        round.style.left=roundLeft-10+"px";
+                    }else{round.style.left=0;}
+                    break;
+                case 38:
+                    if(roundTop>roundHeight){
+                        round.style.top=roundTop-10+"px";
+                    }else{round.style.top=0;}
+                    break;
+                case 39:
+                    if(roundLeft<clientWidth-roundWidth){
+                        round.style.left=roundLeft+10+"px";
+                    }
+                    else{
+                        round.style.left=clientWidth-roundWidth;
+                    }
+                    break;
+                case 40:
+                    if(roundTop<clientHeight-roundHeight){
+                        round.style.top=roundTop+10+"px";
+                    }
+                    else{
+                        round.style.top=clientHeight-roundHeight
+                    }
+            }
+        },10)
+
+    }
+    document.onkeyup= function () {
+        clearInterval(timer1);
+    }
+</script>
+</body>
+</html>

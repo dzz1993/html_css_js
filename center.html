@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<html lan="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <title>center</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        ul{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .pagination{
+            text-align: center;
+        }
+        .pagination li{
+            display: inline-block;
+            line-height: 25px;
+            margin:0 5px;
+        }
+        .pagination li a{
+            color: white;
+            text-shadow: 1px 0 0 #111111;
+            padding: 0 10px;
+            border-radius: 2px;
+            box-shadow: 0 1px 0 #080808 inset,0 1px 0 #5c5c5c;
+            background:linear-gradient(#434345,#2f3032);
+        }
+        .pagination li a:hover{
+            text-decoration: none;
+            box-shadow: 0 1px 0 #f9bd71 inset,0 1px 0 #0a0a0a;
+            background: linear-gradient(#f48b03,#c87100);
+        }
+        .line-divide{
+            background-color: #cccccc;
+            height: 10px;
+            clear: both;
+        }
+        .pagination2{
+            float: left;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        .pagination2 ul{
+            position: relative;
+            float: left;
+            left:50%;
+        }
+        .pagination2 ul li{
+            float: left;
+            position: relative;
+            margin: 0 5px;
+            right:50%;
+            line-height: 25px;
+        }
+        .pagination2 li a{
+            display: block;
+            color: white;
+            text-shadow: 1px 0 0 #111111;
+            padding: 0 10px;
+            border-radius: 2px;
+            box-shadow: 0 1px 0 #080808 inset,0 1px 0 #5c5c5c;
+            background:linear-gradient(#434345,#2f3032);
+        }
+        .pagination2 li a:hover{
+            text-decoration: none;
+            box-shadow: 0 1px 0 #f9bd71 inset,0 1px 0 #0a0a0a;
+            background: linear-gradient(#f48b03,#c87100);
+        }
+        .pagination3{
+            position: relative;
+            height: 25px;
+        }
+        .pagination3 ul{
+            position: absolute;
+            left: 50%;
+        }
+        .pagination3 li{
+            position: relative;
+            float: left;
+            right: 50%;
+            margin: 0 5px;
+            line-height: 25px;
+        }
+        .pagination3 li a{
+            display: block;
+            color: white;
+            text-shadow: 1px 0 0 #111111;
+            padding: 0 10px;
+            border-radius: 2px;
+            box-shadow: 0 1px 0 #080808 inset,0 1px 0 #5c5c5c;
+            background:linear-gradient(#434345,#2f3032);
+        }
+        .pagination3 li a:hover{
+            text-decoration: none;
+            box-shadow: 0 1px 0 #f9bd71 inset,0 1px 0 #0a0a0a;
+            background: linear-gradient(#f48b03,#c87100);
+        }
+        .clear-line{
+            clear: both;
+            height:0px;
+        }
+        h2{
+            font-size: 24px;
+            margin: 3px 0;
+            border: 0;
+        }
+        p{
+            font-size: 18px;
+            margin: 0;
+            border: 0;
+        }
+        .content{
+            position: relative;
+            left: 50%;
+            top: 20px;
+            margin-left: -150px;
+            width: 302px;
+            height: 200px;
+            border: 1px solid red;
+            text-align: center;
+        }
+        .line1{
+            line-height: 25px;
+        }
+        .line1 .left-p{
+            margin-left: 20px;
+            float: left;
+        }
+        .line1 .right-p{
+            margin-right: 20px;
+            float: right;
+        }
+        .left-div{
+            float: left;
+            width: 100px;
+            height: 100px;
+            margin: 22px 30px 22px 20px;
+            background-image: url(images/arrow.png);
+            background-repeat: no-repeat;
+            background-size: 100px 100px;
+        }
+        .right-div{
+            float: right;
+            width: 130px;
+            height: 100px;
+            margin: 22px 20px 22px 0px;
+        }
+        .right-div .line{
+            width: 100%;
+        }
+        .right-div .line .left-p{
+            float: left;
+            line-height: 25px;
+            max-width: 50px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .right-div .line .right-p{
+            float: right;
+            line-height: 25px;
+            max-width: 80px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bottom-title{
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="pagination">
+    <ul>
+        <li><a href="#">Prev</a>
+        </li><li><a href="#">1</a>
+        </li><li><a href="#">2</a>
+        </li><li><a href="#">3</a>
+        </li><li><a href="#">4</a>
+        </li><li><a href="#">5</a>
+        </li><li><a href="#">Next</a></li>
+    </ul>
+</div>
+
+<div class="line-divide"></div>
+
+<div class="pagination2">
+    <ul>
+        <li><a href="#">Prev</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">Next</a></li>
+    </ul>
+</div>
+<div class="line-divide"></div>
+<div class="pagination3">
+    <ul>
+        <li><a href="#">Prev</a></li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">Next</a></li>
+    </ul>
+</div>
+<div class="clear-line"></div>
+<div class="content">
+    <h2>目录</h2>
+    <div class="line1">
+        <p class="left-p">title1</p>
+        <p class="right-p">content</p>
+    </div>
+    <div class="clear-line"></div>
+    <div class="left-div"></div>
+    <div class="right-div">
+        <div class="line">
+            <p class="left-p">title2</p>
+            <p class="right-p">content2</p>
+        </div>
+        <div class="line">
+            <p class="left-p">title3</p>
+            <p class="right-p">content3</p>
+        </div>
+        <div class="line">
+            <p class="left-p">title44444</p>
+            <p class="right-p">content4</p>
+        </div>
+    </div>
+</div>
+<div class="clear-line"></div>
+<div class="bottom-title">居中的页面</div>
+<div class="outer-text-p">
+    <div class="text-p">
+        <h2>headline1</h2>
+    </div>
+    <div class="text-p">
+        <h2>headline1</h2>
+    </div>
+</div>
+
+<style>
+    .outer-text-p{
+        float: left;
+        position: relative;
+        left: 50%;
+    }
+    .text-p{
+        float: left;
+        position: relative;
+        border: 1px solid red;
+        text-align: center;
+        line-height:100px;
+        margin:0 10px;
+        right: 50%;
+    }
+    .text-p h2{
+        margin: 0 10px;
+    }
+</style>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

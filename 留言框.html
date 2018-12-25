@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <title></title>
+    <style>
+        #wrapper{
+            width: 320px;
+            height: 520px;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #333;
+            background-color: #F6F6F6;
+        }
+        #wrapper input{
+            height: 26px;
+            width: 150px;
+            padding-left: 5px;
+        }
+        #wrapper p{
+            color: #666;
+            font-weight: bold;
+            margin: 10px 0;
+            font-size: 18px;
+            padding-left: 10px;
+            line-height: 1.5em;
+            cursor: pointer;
+        }
+        #wrapper p:hover{
+            background-color: #ccc;
+        }
+        .choose:nth-child(odd){
+            background-color: indianred;
+        }
+        .choose:nth-child(even){
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <input id="text"/>
+    <button id="confirm">留言</button>
+    <button id="del">批量删除</button>
+    <p>444</p>
+</div>
+
+<script type="text/javascript">
+    function add_p(){
+        var text=$("#text").val();
+        console.log(text);
+        if(text==""){
+            alert("input a word!");
+        }
+        else{
+            var p=document.createElement("p");
+            p.innerHTML=text;
+            $("#del").after(p);
+            $("#text").val("");
+        }
+    }
+
+    /*$("#wrapper p").click(function () {
+        choose_p($(this));
+    })*/
+    $("#wrapper").on("click","p", function () {
+        $(this).toggleClass("choose");
+    })
+    /*$("#confirm").click(function () {
+        add_p();
+    });*/
+    $("#confirm").click(add_p);
+    $(document).keydown(function (event) {
+        if(event.keyCode == '13'){
+            add_p();
+        }
+    })
+    $("#del").on("click", function () {
+        $("#wrapper p[class*=choose]").remove();
+    })
+</script>
+</body>
+</html>

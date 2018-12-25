@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/a_datas.js"></script>
+    <title>zhaopin</title>
+    <style>
+        #container{
+            width: 1000px;
+            margin: 150px auto;
+        }
+        #header{
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-bottom:3px solid #f60 ;
+        }
+        #header li:hover{
+            cursor: pointer;
+        }
+        #header li{
+            float: left;
+            width: 80px;
+            font-size: 14px;
+            color: black;
+        }
+        #header .choose{
+            background-color: #f60;
+            color: white;
+        }
+        #mainContent li{
+            line-height: 30px;
+            height: 30px;
+            font-size: 16px;
+        }
+        #popUp{
+            position: absolute;
+            background-color: white;
+            display: none;
+            width: 400px;
+            border: 1px solid #ccc;
+            padding: 15px;
+        }
+        #popUp .p-detail{
+            width: 180px;
+            float: left;
+            line-height: 30px;
+            height: 30px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload=function(){
+            var oCon=document.getElementById("container");
+            var oHead=document.getElementById("header");
+            var oDiv=document.getElementById("mainContent");
+            var oPop=document.getElementById("popUp");
+            for(var i=0;i<data.length;i++){
+                oHead.innerHTML+="<li>"+data[i]['name']+"</li>";
+            }
+            var list=oHead.getElementsByTagName("li");
+            list[0].className="choose";
+            for(var i=0;i<list.length;i++){
+                list[i]['index']=i;
+                list[i].onclick=function(){
+                    for(var j=0;j<list.length;j++){
+                        list[j].className="";
+                    }
+                    this.className="choose";
+                    oDiv.innerHTML="";
+                    oPop.innerHTML="";
+                    showContent(data[this.index]);
+                }
+            }
+            showContent(data[0]);
+            function showContent(obj){
+                var ul=document.createElement('ul');
+                for(var i=0;i<obj['list'].length;i++){
+                    var li=document.createElement('li');
+                    var a=document.createElement('a');
+                    a.innerHTML=obj['list'][i]["title"];
+                    a.index=i;
+                    a.href="javascript:";
+                    li.appendChild(a);
+                    ul.appendChild(li);
+
+                    var h4=document.createElement('h4');
+                    var p1=document.createElement('p');
+                    p1.className='p-detail';
+                    var p2=document.createElement('p');
+                    p2.className='p-detail';
+                    var p3=document.createElement('p');
+                    p3.className='p-detail';
+                    var p4=document.createElement('p');
+                    p4.className='p-detail';
+                    var p5=document.createElement('p');
+                    p5.className='p-detail';
+                    var p6=document.createElement('p');
+                    p6.className='p-detail';
+
+                    a.onmouseover=function(){
+                        oPop.style.display="block";
+                        /*oPop.style.left=oCon.offsetLeft+this.offsetWidth+10+'px';
+                        oPop.style.top=this.scrollTop+this.offsetTop+'px';*/
+                        oPop.style.left=this.getBoundingClientRect().left+this.offsetWidth+10+'px';
+                        oPop.style.top=this.getBoundingClientRect().top+'px';
+                        h4.innerHTML=obj['list'][this.index]['company'];
+                        p1.innerHTML=obj['list'][this.index]['position'];
+                        p2.innerHTML = obj.list[this.index].workingLocation;
+                        p3.innerHTML = obj.list[this.index].workExperience;
+                        p4.innerHTML = obj.list[this.index].education;
+                        p5.innerHTML = obj.list[this.index].wage;
+                        p6.innerHTML = obj.list[this.index].addDate;
+
+                        oPop.appendChild(h4);
+                        oPop.appendChild(p1);
+                        oPop.appendChild(p2);
+                        oPop.appendChild(p3);
+                        oPop.appendChild(p4);
+                        oPop.appendChild(p5);
+                        oPop.appendChild(p6);
+                    }
+                    a.onmouseleave=function(){
+                        oPop.style.display="none";
+                    }
+                }
+                oDiv.appendChild(ul);
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <div id="container">
+        <ul id="header"></ul>
+        <div id="mainContent"></div>
+    </div>
+    <div id="popUp">
+
+    </div>
+</body>
+</html>

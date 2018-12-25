@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <title></title>
+    <style>
+        body{
+            background-color: #ccc;
+        }
+        #btn{
+            margin: 50px auto 0 auto;
+            width: 100px;
+        }
+        #btn button{
+            width: 40px;
+            height: 26px;
+        }
+        #can{
+            width: 500px;
+            height: 500px;
+            background-color: white;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div id="btn">
+    <button id="draw">画图</button>
+    <button id="redraw">重画</button>
+</div>
+<div id="can">
+   <canvas width="500" height="500" id="draw_canvas">
+       your browser don not support!
+   </canvas>
+</div>
+<script type="text/javascript">
+    //var context=$("#draw_canvas").getContext("2d");
+    /*避免用jQuery操作canvas*/
+    var can=document.getElementById("draw_canvas");
+    var context=can.getContext("2d");
+    var redraw=document.getElementById("redraw");
+    var draw=document.getElementById("draw");
+
+    redraw.onclick=function () {
+        context.clearRect(0,0,can.width,can.height);
+        context.beginPath();
+        context.clearRect(0,0,can.width,can.height);
+    }
+    draw.onclick=function () {
+        context.beginPath();
+    }
+    can.onmousedown=function (e) {
+
+        var event=e||event;
+        var left=event.clientX-can.offsetLeft;
+        var top=event.clientY-can.offsetTop;
+        context.moveTo(left,top);
+
+        document.onmousemove=function (e) {
+            e=e||window.event;
+            var left=e.clientX-can.offsetLeft;
+            var top=e.clientY-can.offsetTop;
+            context.lineTo(left,top);
+            context.stroke();
+        }
+
+        document.onmouseup=function (e) {
+            document.onmousedown=document.onmousemove=null;
+        }
+
+    }
+</script>
+</body>
+</html>

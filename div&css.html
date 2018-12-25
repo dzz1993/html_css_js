@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>div-test</title>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/dzz_style.css">
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+            box-sizing: border-box;
+        }
+        body{
+            text-align: center;
+        }
+        .my-img{
+            display: block;
+            width: 300px;
+            margin: 20px auto;
+            animation:mymove 0.5s infinite ease-in-out;
+            -webkit-animation:mymove 0.6s infinite ease-in-out;
+        }
+        @keyframes mymove {
+            0%{
+                transform: scale(1);
+            }
+            60%{
+                transform: scale(1.2);
+            }
+            80%,100%{
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+<img class="my-img" src="images/弹窗2.png"/>
+
+
+<script type="text/javascript">
+
+</script>
+</body>
+
+</html>

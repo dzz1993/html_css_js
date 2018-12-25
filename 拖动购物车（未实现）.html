@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!--本想通过鼠标的按下和抬起来捕捉时间，但事实证明，当鼠标移动后是无法捕捉到鼠标的抬起事件的-->
+    <!--正确的方法应该是js的ondragstart+ondragover+ondrop+dataTransfer联用实现-->
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <title></title>
+    <style>
+        #ul1 li{
+            float: left;
+            width: 205px;
+            margin: 5px;
+        }
+        #ul1 li img{
+            width: 205px;
+            height: auto;
+        }
+        #ul1 li p{
+            width: 100%;
+            font-size: 16px;
+            height: 30px;
+            line-height: 30px;
+            border-bottom: 1px dashed #666666;
+            font-weight: bold;
+            color: #333;
+            text-indent: 5px;
+        }
+        #div1{
+            width: 602px;
+            height: 400px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+        #div1 li{
+            border-bottom: 1px dashed #ccc;
+        }
+        #div1 li p{
+            width: 200px;
+            display: inline-block;
+            height: 30px;
+            line-height: 30px;
+            font-size: 20px;
+            text-indent: 5px;
+        }
+    </style>
+</head>
+<body>
+<ul id="ul1" class="clearfix">
+    <li draggable="true">
+        <img src="images/tag-images/jd.jpg" />
+        <p>javascript语言精粹</p>
+        <p>40￥</p>
+    </li>
+    <li draggable="true">
+        <img src="images/tag-images/1hd.jpg" />
+        <p>javascript权威指南</p>
+        <p>120￥</p>
+    </li>
+    <li draggable="true">
+        <img src="images/tag-images/amazon.jpg" />
+        <p>精通javascript</p>
+        <p>35￥</p>
+    </li>
+    <li draggable="true">
+        <img src="images/tag-images/youku.jpg" />
+        <p>DOM编程艺术</p>
+        <p>45￥</p>
+    </li>
+</ul>
+<ul id="div1"></ul>
+
+<script type="text/javascript">
+    var ul=document.getElementById("ul1");
+    var lis=ul.getElementsByTagName("li");
+    var div=document.getElementById("div1");
+    var index=0;
+    var flag=0;
+    for(var i=0;i<lis.length;i++){
+        lis[i]["index"]=i;
+        lis[i].ondragstart=function(){
+            flag=1;
+            index=this.index;
+            console.log(0);
+            document.ondrop= function (e) {
+                var event=e||window.event;
+                var x=event.clientX;
+                var y=event.clientY;
+                var lx=div.offsetLeft;
+                var rx=div.offsetWidth+div.offsetLeft;
+                var ly=div.offsetTop;
+                var ry=div.offsetTop+div.offsetHeight;
+                if(x>lx && x<rx && y>ly && y<ry && flag==1){
+                    addItem(index);
+                    console.log(1);
+                }
+                else{
+                    console.log(4);
+                }
+                flag=0
+            }
+        }
+    }
+
+    function addItem(index){
+        if(lis[index]["number"]){
+            console.log(2);
+            lis[index]["number"]++;
+
+
+
+
+        }
+        else{
+            console.log(3);
+            lis[index]["number"]=1;
+            var id=document.createElement("p");
+            var number=document.createElement("p");
+            var name=document.createElement("p");
+            var money=document.createElement("p");
+            id.innerHTML=index;
+            id.style.display="none";
+            number.innerHTML=1;
+            name.innerHTML=lis[index].getElementsByTagName('p')[0].innerHTML;
+            money.innerHTML=parseInt(lis[index].getElementsByTagName("P")[1].innerHTML);
+            var li=document.createElement("li");
+            li.appendChild(id);
+            li.appendChild(number)
+            li.appendChild(name);
+            li.appendChild(money);
+            div.appendChild(li);
+        }
+    }
+</script>
+</body>
+</html>

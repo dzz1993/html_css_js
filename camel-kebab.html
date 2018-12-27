@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width initial-scale=1">
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="./css/dzz_style.css" rel="stylesheet" type="text/css">
+        <style>
+            .line{
+                width: 60%;
+                margin: 10px auto;
+            }
+        </style>
+
+
+    </head>
+    <body>
+        <div class="line">
+            <input type="text" id="camel-case1"/>
+            <button type="button" id="camel-kebcase1">camel->kebcase</button>
+            <input type="text" id="kebab-case1"/>
+        </div>
+
+        <div class="line">
+            <input type="text" id="camel-case2"/>
+            <button type="button" id="camel-kebcase2">camel->kebcase</button>
+            <input type="text" id="kebab-case2"/>
+        </div>
+
+        <div class="line">
+            <input type="text" id="kebab-case3"/>
+            <button type="button" id="kebcase-camel3">kebcase->camel</button>
+            <input type="text" id="camel-case3"/>
+        </div>
+
+        <div class="line">
+            <input type="text" id="kebab-case4"/>
+            <button type="button" id="kebcase-camel4">kebcase->camel</button>
+            <input type="text" id="camel-case4"/>
+        </div>
+        <script type="text/javascript">
+            /*使用数组方法*/
+            function getKebabCase(camel){
+                var arr=camel.split("");
+                var newStr=arr.map(function (value,key) {
+                    if(value.toUpperCase()===value){
+                        return "-"+value.toLowerCase();
+                    }
+                    else{
+                        return value;
+                    }
+                }).join("");
+                return newStr;
+            }
+            function getkebabCase2(camel){
+                return camel.replace(/[A-Z]/g, function (str) {
+                    return "-"+str.toLowerCase();
+                })
+            }
+            function getCamelCase(kebab){
+                var arr=kebab.split("-");
+                var newStr=arr.map(function (value,key) {
+                    if(key==0){
+                        return value;
+                    }
+                    else{
+                        return value.charAt(0).toUpperCase()+value.slice(1);
+                    }
+                }).join("");
+                return newStr;
+            }
+            function getCamelCase2(kebab){
+                return kebab.replace(/-([a-z])/g, function (all,str) {//多参数还是不懂？
+                    console.log(all);//-a
+                    console.log(str);//a
+                    return str.toUpperCase();
+                })
+            }
+
+
+            $("#camel-kebcase1").click(function () {
+                var val=$("#camel-case1").val();
+                if(!val){
+                    alert("please input a camelCase word!");
+                }
+                else{
+                    var newVal=getKebabCase(val);
+                    $("#kebab-case1").val(newVal);
+                }
+            })
+            $("#camel-kebcase2").click(function () {
+                var val=$("#camel-case2").val();
+                if(!val){
+                    alert("please input a camelCase word!");
+                }
+                else{
+                    var newVal=getKebabCase(val);
+                    $("#kebab-case2").val(newVal);
+                }
+            })
+            $("#kebcase-camel3").click(function () {
+                var val=$("#kebab-case3").val();
+                if(!val){
+                    alert("please input a kebab-case word!");
+                }
+                else{
+                    var newVal=getCamelCase(val);
+                    $("#camel-case3").val(newVal);
+                }
+            })
+            $("#kebcase-camel4").click(function () {
+                var val=$("#kebab-case4").val();
+                if(!val){
+                    alert("please input a kebab-case word!");
+                }
+                else{
+                    var newVal=getCamelCase2(val);
+                    $("#camel-case4").val(newVal);
+                }
+            })
+
+
+
+        </script>
+    </body>
+</html>

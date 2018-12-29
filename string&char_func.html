@@ -50,6 +50,25 @@
     console.log(obj5);
     console.log("obj6:");
     console.log(obj6);
+
+    function f1(){
+        var n = 999;
+        var m=0;
+        nAdd = function(){
+            console.log(n++);
+        }//定义了一个全局变量存储匿名函数，该函数成为了一个闭包，内部局部变量n被存储起来不被释放
+        function f2(){
+            console.log(m++);
+        }
+        return f2;
+    }
+    var result = f1();//f1的返回值f2成为一个闭包，内部局部变量m被存储起来不释放
+    result();　　//从函数外部通过闭包f2获取到函数f1内部局部变量的值0
+    nAdd();　　//输出当前n的值999
+    var num2=result();　　//再次通过闭包f2获取到函数m内部局部变量的值1
+    nAdd(); //输出当前n的值1000
+    var result2 = f1();
+    result2();//输出0，result和result2虽然都存储的是f2代码（闭包），但是两个代码在堆内存中的位置不同，其内部变量不是一个变量
 </script>
 </body>
 </html>

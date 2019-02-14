@@ -47,7 +47,7 @@
     </style>
 </head>
 <body>
-<ul id="ul1" class="clearfix">
+<ul id="ul1" class="clearfix" >
     <li draggable="true">
         <img src="images/tag-images/jd.jpg" />
         <p>javascript语言精粹</p>
@@ -69,69 +69,39 @@
         <p>45￥</p>
     </li>
 </ul>
-<ul id="div1"></ul>
+<ul id="div1" ondragover="allowDrop(event)" ondrop="drop(event)">
+
+</ul>
 
 <script type="text/javascript">
-    var ul=document.getElementById("ul1");
-    var lis=ul.getElementsByTagName("li");
-    var div=document.getElementById("div1");
-    var index=0;
-    var flag=0;
+window.onload=function(){
+    var ul1 = document.getElementById('ul1');
+    var lis = ul1.getElementsByTagName('li');
     for(var i=0;i<lis.length;i++){
-        lis[i]["index"]=i;
-        lis[i].ondragstart=function(){
-            flag=1;
-            index=this.index;
-            console.log(0);
-            document.ondrop= function (e) {
-                var event=e||window.event;
-                var x=event.clientX;
-                var y=event.clientY;
-                var lx=div.offsetLeft;
-                var rx=div.offsetWidth+div.offsetLeft;
-                var ly=div.offsetTop;
-                var ry=div.offsetTop+div.offsetHeight;
-                if(x>lx && x<rx && y>ly && y<ry && flag==1){
-                    addItem(index);
-                    console.log(1);
-                }
-                else{
-                    console.log(4);
-                }
-                flag=0
-            }
+        lis[i].index=i;
+        lis[i].ondragstart=function(ev){
+            ev.dataTransfer.setData('oId',this.index);
         }
     }
+}
 
-    function addItem(index){
-        if(lis[index]["number"]){
-            console.log(2);
-            lis[index]["number"]++;
+function allowDrop(ev){
+    ev.preventDefault();
+}
+function drop(ev){
+    ev.preventDefault();
+    var index=ev.dataTransfer.getData('oId');
+    var ul1 = document.getElementById('ul1');
+    var lis = ul1.getElementsByTagName('li');
+    var newNode=document.createElement('div');
+    newNode.innerHTML=lis[index].innerHTML;
+    ev.target.appendChild(newNode);
+}
+function drag(ev){
+    var index=ev.target.index;
+    ev.dataTransfer.setData('oId',index);
+}
 
-
-
-
-        }
-        else{
-            console.log(3);
-            lis[index]["number"]=1;
-            var id=document.createElement("p");
-            var number=document.createElement("p");
-            var name=document.createElement("p");
-            var money=document.createElement("p");
-            id.innerHTML=index;
-            id.style.display="none";
-            number.innerHTML=1;
-            name.innerHTML=lis[index].getElementsByTagName('p')[0].innerHTML;
-            money.innerHTML=parseInt(lis[index].getElementsByTagName("P")[1].innerHTML);
-            var li=document.createElement("li");
-            li.appendChild(id);
-            li.appendChild(number)
-            li.appendChild(name);
-            li.appendChild(money);
-            div.appendChild(li);
-        }
-    }
 </script>
 </body>
 </html>

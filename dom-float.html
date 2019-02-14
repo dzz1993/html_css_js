@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>DOM事件流</title>
+</head>
+<body>
+<div id="div1">
+    <button id="btn">按钮</button>
+</div>
+<script>
+    var btn = document.getElementById("btn");
+    var div1 = document.getElementById("div1");
+
+    //事件目标
+    btn.onclick= function () {
+        console.log("目标1.Click btn");
+    }
+    btn.addEventListener("click",function(){
+        console.log("目标2.Click btn");
+    });
+    //阻止冒泡
+    /*btn.onclick = function(e){
+        console.log("目标1.Click btn");
+        e.stopPropagation();
+    }*/
+   /* btn.addEventListener("click",function(e){
+        console.log("目标2.Click btn");
+        e.stopPropagation();
+    });*/
+
+    //事件冒泡
+    div1.onclick = function(){
+        console.log("冒泡1.Click div1");
+    }
+    document.body.onclick = function(){
+        console.log("冒泡2.Click Body");
+    }
+    document.onclick = function(){
+        console.log("冒泡3.Click document");
+    }
+    window.onclick = function(){
+        console.log("冒泡4.Click window");
+    }
+
+    //事件捕获
+    window.addEventListener("click",function(){
+        console.log("捕获4.Click window");
+    },true);
+    document.addEventListener("click",function(){
+        console.log("捕获3.Click document");
+    },true);
+    document.body.addEventListener("click",function(){
+        console.log("捕获2.Click body");
+    },true);
+    div1.addEventListener("click",function(){
+        console.log("捕获1.Click div1");
+    },true);
+
+</script>
+</body>
+</html>

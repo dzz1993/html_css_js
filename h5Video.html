@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>H5 video自定义视频控件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            background-color: #000;
+            position:relative;
+            display: inline-block;
+            color: #fff;
+            left: 50%;
+            margin-left: -300px;
+        }
+        .controls {
+            position: absolute;
+            bottom: 3px;
+        }
+        input[type="button"]{
+            background-color: cornflowerblue;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        #rangebar {
+            width: 200px;
+            height: 5px;
+            border: 1px solid #ccc;
+            margin-top: 3px;
+            display: inline-block;
+        }
+        #rangebar>p {
+            width: 0%;
+            height: 100%;
+            background-color: blueviolet;
+        }
+        #progress {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <video width="600" height="450" poster="">
+        <source type="video/mp4" src="images/video/农场宣传.mp4">
+        您的浏览器不支持 video 标签。
+    </video>
+    <div class="controls">
+        <input type="button" value="播放" id="play"/>
+        <input type="button" value="暂停" id="pause"/>
+        <input type="button" value="快进" id="speed"/>
+        <input type="button" value="快退" id="back"/>
+        <input type="button" value="静音" id="mute"/>
+        <input type="button" value="全屏" id="fullscreen"/>
+        <a href="http://data.video.qiyi.com/videos/other/20170714/98/41/1d9d8d069dc4f8c2e070c888d53aa197.mp4?pv=0.2" download="广告视频">
+            <input type="button" value="下载" id="download"/>
+        </a>
+        VOICE:<!--<input type="range" id="progress" value="30" min="0" max="100"/>-->
+        <progress id="progress" value="30" min="0" max="100"></progress>
+        <!--<br/></br.>视频进度：<div id="rangebar">
+        <p></p>-->
+    </div>
+</div>
+<script>
+    var video = document.getElementsByTagName("video")[0];
+    play.onclick=function(){
+        video.play();
+    }
+    pause.onclick=function(){
+        video.pause();
+    }
+    speed.onclick=function(){
+        video.currentTime += 5;
+        console.log(video.currentTime);
+    }
+    back.onclick=function(){
+        video.currentTime -=5;
+        console.log(video.currentTime);
+    }
+    mute.onclick = function(){
+        video.muted = true;
+        progress.value=0;
+    }
+    fullscreen.onclick=function(){
+        video.webkitRequestFullscreen();
+    }
+    /* *视频播放进度*
+     * 获取视频总时长 video.duration
+     * ........当前播放位置 video.currentTime
+     * 进度条p的宽度：(video.currentTime/video.duration)*100+'%'
+     * */
+    var timer = setInterval(function(){
+        rangebar.getElementsByTagName("p")[0].style.width=(video.currentTime/video.duration)*100+'%';
+    },100);
+    var mousedownFlag=0;
+    window.onmousedown=function(){
+        mousedownFlag=1;
+    }
+    window.onmouseup= function () {
+        mousedownFlag=0;
+    }
+    //音频大小
+    progress.onmousemove = function(){
+        if(mousedownFlag==1){
+            video.volume = this.value/100;
+        }
+    }
+    video.play= function () {
+
+    }
+</script>
+</body>
+</html>

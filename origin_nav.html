@@ -59,13 +59,19 @@
             height: 48px;
             margin:10px auto;
         }
-        li p{
+        li p,span{
             font-size: 20px;
             bottom: 10px;
             text-align: center;
         }
         .my-inconfont{
             font-size: 48px;
+            margin: 10px auto;
+        }
+        li .top-ul-first:before{
+            content: "\e6cb";
+            font-size: 48px;
+            bottom: 0;
             margin: 10px auto;
         }
     </style>
@@ -88,15 +94,15 @@
     </ul>
     <ul class="top-ul">
         <li>
-            <i class="icon iconfont icon-shouye my-inconfont"></i>
+            <div class="iconfont top-ul-first"></div>
+            <p >首页</p>
+        </li>
+        <li>
+            <i class="iconfont icon-shouye my-inconfont"></i>
             <p>首页</p>
         </li>
         <li>
-            <i class="icon iconfont icon-shouye my-inconfont"></i>
-            <p>首页</p>
-        </li>
-        <li>
-            <i class="icon iconfont icon-shouye my-inconfont"></i>
+            <i class="iconfont icon-shouye my-inconfont"></i>
             <p>首页</p>
         </li>
     </ul>

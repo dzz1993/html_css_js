@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <title>3D-flip</title>
+    <style>
+		#wrapper{
+			background: url(images/jd-index/ad1.jpg) no-repeat left top;/*790*340*/
+			margin: 100px auto;
+			width: 790px;
+			height: 340px;
+			position: relative;
+			perspective:1200px;/*1200*/
+		}
+		.left{
+			transform: rotateY(0deg);/*直接在js中操作*/
+			/*transition: 2s ease-in-out;*//*直接加在on上，否则去除on和加上on都有过渡效果，我们去除transition是不需要过渡效果的*/
+			transform-origin: left;
+			transform-style: preserve-3d;/*3d翻转属性,所有的3d变换都必须在父级给个perspective景深*/
+			/*3d翻转记住一点，图的正反面都是一样的！！！*/
+			z-index: 1;
+		}
+		.left,.right{
+			position: absolute;
+			left: 50%;
+			width: 50%;
+			height: 100%;
+			top: 0;
+		}
+		.on{
+			transition: 2s ease-in-out;
+			transform: rotateY(-180deg);
+		}
+		.right{
+			background: url(images/jd-index/ad2.jpg) no-repeat right top;
+		}
+		.prev , .next{
+			position: absolute;
+			width: 100%;
+			height: 100%;
+		}
+		.prev{
+			background: url(images/jd-index/ad1.jpg) no-repeat right top;
+		}
+		.next{
+			background: url(images/jd-index/ad2.jpg) no-repeat left top;
+			transform: translateZ(-1px) scale(-1,1);/*scale当你给负值的时候，translateZ就是沿着Z轴往里面就可以发生水平和竖直镜像，使得整个图片变成了两层，搭配transform-style:preserve-3d*/
+		}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+	<!--3D旋转利用transformZ相当于把上下两个分别镶嵌在两面,-->
+	<div class="left">
+		<div class="prev"></div>
+		<div class="next"></div>
+	</div>
+	<div class="right">
+	</div>
+</div>
+
+<script type="text/javascript">
+	(function(){
+		var oLeft=document.querySelector(".left");
+		var prevImg=document.querySelector('.prev');
+		var nextImg=document.querySelector('.next');
+		var rightImg=document.querySelector('.right');
+		var index=0;
+		var isClick=false;
+		var flag=0;
+		var wrapperImg=document.querySelector('#wrapper');
+		document.onclick=function(){
+			change();
+			flag++;
+		}
+		
+		function change(){
+			if(isClick) return;
+			isClick=true;
+			oLeft.classList.add('on');
+			index++;
+			index %=6;
+			document.addEventListener('transitionend',function(){
+				oLeft.classList.remove('on');
+				prevImg.style.backgroundImage="url(images/jd-index/ad"+(index)+".jpg)";
+				console.log(index);
+				wrapperImg.style.backgroundImage="url(images/jd-index/ad"+(index)+".jpg)";
+				nextImg.style.backgroundImage="url(images/jd-index/ad"+(index+1)%6+".jpg)";
+				rightImg.style.backgroundImage="url(images/jd-index/ad"+(index+1)%6+".jpg)";
+				isClick=false;
+			})
+		}
+	})()
+</script>
+</body>
+</html>

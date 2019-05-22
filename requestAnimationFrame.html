@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <!--<script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <title>requestAnimationFrame</title>
+    <style>
+		body{
+			overflow-x: hidden;
+		}
+		#wrapper{
+			position: relative;
+			width: 100%;
+			margin-top: 100px;
+		}
+		#wrapper-img{
+			position: absolute;
+			display: none;
+			z-index: 2;
+		}
+		ul{
+			width: 6504px;
+			position: relative;
+		}
+		ul li{
+			float: left;
+		}
+		#wrapper-img img{
+			border: 2px solid #CCCCCC;
+			width: 1084px;
+			height: 432px;
+		}
+		#wrapper img{
+			width: 542px;
+			height: 246px;
+		}
+    </style>
+</head>
+<body>
+<div id="wrapper-img">
+	<img src="images/lunbo-img/1.png" />
+</div>
+<div id="wrapper">
+<ul>
+	<li>
+		<img src="images/lunbo-img/1.png" />
+	</li>
+	<li>
+		<img src="images/lunbo-img/2.png" />
+	</li>
+	<li>
+		<img src="images/lunbo-img/3.png" />
+	</li>
+	<li>
+		<img src="images/lunbo-img/44.jpg" />
+	</li>
+	<li>
+		<img src="images/lunbo-img/55.jpg" />
+	</li>
+	<li>
+		<img src="images/lunbo-img/66.jpg" />
+	</li>
+	<li>
+		<img src="images/lunbo-img/1.png" />
+	</li>
+	<li>
+		<img src="images/lunbo-img/2.png" />
+	</li>
+	<li>
+		<img src="images/lunbo-img/3.png" />
+	</li>
+	<li>
+		<img src="images/lunbo-img/44.jpg" />
+	</li>
+	<li>
+		<img src="images/lunbo-img/55.jpg" />
+	</li>
+	<li>
+		<img src="images/lunbo-img/66.jpg" />
+	</li>
+</ul>	
+</div>
+<script type="text/javascript">
+	(function(){
+		var oUl=document.querySelector('#wrapper ul');
+		var oLis=document.querySelectorAll("#wrapper li");
+		var bigImg=document.querySelector("#wrapper-img");
+		
+		var timer=0;//全局一个timer并初始为0，timer的返回值和requestAnimationFrame的返回值都是数字
+		move();
+		function move(){
+			var speed=2;
+			var tempLeft=oUl.offsetLeft;
+			oUl.style.left=tempLeft-speed+'px';//关于给left或者top赋值的时候千万别忘了拼接px
+			var ulWidth=oUl.offsetWidth;
+			if(tempLeft > ulWidth/2){
+				oUl.style.left=0+'px';
+			}
+			timer=requestAnimationFrame(move);//根据浏览器的刷新频率执行内容函数
+		}
+		for(var i=0,len=oLis.length;i<len;i++){
+			oLis[i].onmouseenter=function(){
+				cancelAnimationFrame(timer);//取消动画框架
+			}
+			oLis[i].onmousemove=function(e){
+				//var mousePos=getMousePos(e);
+				//var tempX=mousePos.xPos;
+				//var tempY=mousePos.yPos;
+				e = e||window.event;
+				var tempX=e.clientX;
+				var tempY=e.clientY;
+				bigImg.style.display="block";
+				var tempImg=this.children[0].getAttribute('src');
+				bigImg.children[0].setAttribute('src',tempImg);
+				bigImg.style.left=tempX+15+'px';
+				bigImg.style.top=tempY+15+'px';
+			}
+			oLis[i].onmouseleave=function(){
+				bigImg.style.display="none";
+			}
+			oUl.onmouseout=function(){
+				move();
+			}
+		}
+		//兼容的鼠标事件
+		function getMousePos(evt){
+		    var xPos,yPos;
+		    evt=evt || window.event;
+		    if(evt.pageX){
+		        xPos=evt.pageX;
+		        yPos=evt.pageY;
+		    } else {
+		        xPos=evt.clientX+document.body.scrollLeft -document.body.clientLeft;
+		        yPos=evt.clientY+document.body.scrollTop-document.body.clientTop;
+		    }
+		    return {
+		        x:xPos,
+		        y:yPos
+		    };
+		}
+				
+		//获取元素到浏览器left的值
+		function getElementLeft(obj){
+			var length=obj.offsetLeft;
+			var obj=obj.offsetParent;
+			while(obj != null){
+				length+=obj.offsetLeft;
+				obj=obj.offsetLeft;
+			}
+			return length;
+		}
+		//获取元素到浏览器的top值
+		function getElementTop(obj){
+			var length=obj.offsetTop;
+			var obj=obj.offsetParent;
+			while(obj != null){
+				length+=obj.offsetTop;
+				obj=obj.offsetTop;
+			}
+			return length;
+		}
+		
+		
+	})()
+</script>
+</body>
+</html>

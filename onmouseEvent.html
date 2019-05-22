@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <!--<script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <title>same</title>
+    <style>
+		ul li img{
+			width: 300px;
+			height: 200px;
+			position: absolute;
+			left: calc(50% - 150px);
+		}
+    </style>
+</head>
+<body>
+	<ul>
+		<li class="li1">
+			<img src="images/1.jpg" />
+		</li>
+		<li class="li2">
+			<img src="images/2.jpg" />
+		</li>
+	</ul>
+
+<script type="text/javascript">
+	var aLi=document.querySelectorAll("li img");
+	for(var i=0,len=aLi.length;i<len;i++){
+		aLi[i].onmousedown=function(e){
+			e =e||window.event;
+			var ori_left=this.offsetLeft;
+			var ori_top=this.offsetTop;
+			var clientX=e.clientX;
+			var clientY=e.clientY;
+			console.log("ori_left"+ori_left);
+			console.log("ori_top"+ori_top);
+			document.onmousemove = function(e){
+				e=e||window.event;
+				var tempX=e.clientX;
+				var tempY=e.clientY;
+				this.style.left=(ori_left+tempX-clientX)+'px';
+				this.style.top=(ori_top+tempY-clientY)+'px';
+			}.bind(this);
+			document.onmouseup = function(e){
+				document.onmousemove = null;
+			}
+			return false;
+		}
+	}
+</script>
+</body>
+</html>

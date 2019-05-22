@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <!--<script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <title>data-type</title>
+    
+</head>
+<body>
+<script type="text/javascript">   
+        function arraysSimilar(arr1, arr2){
+            if(!Array.isArray(arr1) || !Array.isArray(arr2) || arr1.length != arr2.length){return false;}
+            var str1=func(arr1);
+            var str2=func(arr2);
+            if(str1.sort().toString()==str2.sort().toString()){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        function func(arr){
+            var newArr=[];
+            for(val of arr){
+                newArr.push(Object.prototype.toString.apply(val));
+            }
+            return newArr;
+        }
+</script>
+<script type="text/javascript">
+	var result=function(){
+    //以下为多组测试数据
+            var cases=[{
+                    arr1:[1,true,null],
+                    arr2:[null,false,100],
+                    expect:true
+                },{
+                    arr1:[function(){},100],
+                    arr2:[100,{}],
+                    expect:false
+                },{
+                    arr1:[null,999],
+                    arr2:[{},444],
+                    expect:false
+                },{
+                    arr1:[window,1,true,new Date(),"hahaha",(function(){}),undefined],
+                    arr2:[undefined,(function(){}),"okokok",new Date(),false,2,window],
+                    expect:true
+                },{
+                    arr1:[new Date()],
+                    arr2:[{}],
+                    expect:false
+                },{
+                    arr1:[window],
+                    arr2:[{}],
+                    expect:false
+                },{
+                    arr1:[undefined,1],
+                    arr2:[null,2],
+                    expect:false
+                },{
+                    arr1:[new Object,new Object,new Object],
+                    arr2:[{},{},null],
+                    expect:false
+                },{
+                    arr1:null,
+                    arr2:null,
+                    expect:false
+                },{
+                    arr1:[],
+                    arr2:undefined,
+                    expect:false
+                },{
+                    arr1:"abc",
+                    arr2:"cba",
+                    expect:false
+                }];
+            
+    //使用for循环, 通过arraysSimilar函数验证以上数据是否相似，如相似显示“通过”,否则"不通过",所以大家要完成arraysSimilar函数,具体要求，详见任务要求。    
+            for(var i=0;i<cases.length;i++){
+                if(arraysSimilar(cases[i].arr1,cases[i].arr2)!==cases[i].expect) {
+                    document.write("不通过！case"+(i+1)+"不正确！arr1="+JSON.stringify(cases[i].arr1)+", arr2="+JSON.stringify(cases[i].arr2)+" 的判断结果不是"+cases[i].expect);
+                    return false;
+                }                
+            }
+            return true;
+            
+        }();
+    document.write("判定结果:"+(result?"通过":"不通过"));
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
+    <title>components Table</title>
+    <style>
+		#box{
+			width: 500px;
+			margin: 100px auto;
+			border: 1px solid #ccc;
+		}
+    </style>
+</head>
+<body>
+<div id="box"></div>	
+	
+	
+<script type="text/javascript" src="js/Table.js"></script>
+<script type="text/javascript">
+	(function(){
+		var table = new Table({
+			el:'box',
+			thead:["序号","姓名","年龄","性别"]
+		});
+		table.test();
+	})()
+</script>
+</body>
+</html>

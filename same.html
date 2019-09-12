@@ -17,11 +17,50 @@
             text-overflow: ellipsis;
             overflow: hidden;
         }
+        .div2,.div3{
+            float: left;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+        }
+        .clear-box{
+            height: 0;
+            clear: both;
+        }
+        .clear-fix{
+            zoom: 1;
+        }
+        .box{
+            margin: 10px;
+            background-color: #4cae4c;
+            width: 100px;
+            height: 100px;
+        }
+        .clear-fix:after{
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        }
     </style>
 </head>
 <body>
 <div class="div1">
     <p>hhfdhfkdfhdhfdhfhdhaldfhadkfhdhfdhfkhkdahfdfhdhfhdhfhdfhdhfhdfhdhfdhfhdhf</p>
+</div>
+<div class="clear-fix">
+    <div class="div2">
+        <div class="box"></div>
+    </div>
+    <div class="clear-box"></div>
+    <div class="div3">
+        <div class="box"></div>
+    </div>
+    <div class="div2">
+
+    </div>
 </div>
 <script type="text/javascript">
 

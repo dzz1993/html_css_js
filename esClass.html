@@ -5,7 +5,13 @@
     <title>class</title>
 </head>
 <body>
-
+    <ul class="ul">
+        <li>0</li>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
 </body>
 <script type="module">
     class Animal{
@@ -31,8 +37,8 @@
     let dog = new Dog('white','wangwang');
     dog.getDog();
     import {sayHello,word} from "./import.js";
-    import {debounce,debounce2} from "./debounce.js";
-    import {throttle,throttle2} from "./js/throttle";
+    import {debounce,debounce2} from "./js/debounce.js";
+    import {throttle,throttle2} from "./js/throttle.js";
 
     sayHello();
     let res = word.includes('god');//es7的includes
@@ -49,5 +55,34 @@
     window.addEventListener('resize',throttle2(500,function () {
         console.log(444);
     }));
+    //测试一下for循环因为闭包引起的问题
+    let ul = document.querySelector("ul");
+    let lis = ul.querySelectorAll('li');
+    //变量提升，全部返回5
+    // for(var i=0;i<5;i++){
+    //     lis[i].onclick = function(){
+    //         console.log(i);
+    //     }
+    // }
+    //let使得变量不提升
+    // for(let j=0;j<5;j++){
+    //     lis[j].onclick = function(){
+    //         console.log(j);
+    //     }
+    // }
+    //数组存储变量，使得能够正常返回
+    console.log(typeof lis);
+    for(var k=0;k<5;k++){
+        //console.log(typeof lis[k]);
+        lis[k].index = k;
+        lis[k].addEventListener('click',function () {
+            console.log(this.index);
+        })
+    }
+
+    //测试把变量变对象
+    let variable = {};
+    variable.x=26;
+    console.log(variable.x);
 </script>
 </html>

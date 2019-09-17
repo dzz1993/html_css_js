@@ -1,6 +1,6 @@
 const throttle = (interval,fn)=>{
     let timeout = null;
-    return function () {
+    return function (a,b) {
         if(!timeout){
             fn.apply(this,arguments);
             timeout = setTimeout(()=>{

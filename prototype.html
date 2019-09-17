@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PROTOTYPE</title>
+</head>
+<body>
+
+</body>
+<script>
+    function A() {
+        console.log("a");
+    }
+    let proto = A.prototype;
+    console.log(proto);
+    let origin = proto.constructor;
+    console.log(origin);
+
+    //普通构造函数的方法
+    function Student(name,age) {
+        this.name = name;
+        this.age = age;
+        this.sayHello = function () {
+            console.log("hello"+this.name+" You are "+this.age);
+        }
+    }
+    let stu1 = new Student('dzz',26);
+    let stu2 = new Student('xqr',26);
+    console.log(stu1.age === stu2.age);
+    console.log(stu1.sayHello === stu2.sayHello);
+    console.log(stu1.__proto__.sayHello === stu2.__proto__.sayHello);
+    console.log("------------------");
+    //测试一下class是怎么回事,class属性是属于对象的，而方法是属于
+    class People{
+        constructor(name,age){
+            this.name = name;
+            this.age = age;
+        }
+        sayHello = function () {
+            console.log("hello"+this.name+" You are "+this.age);
+        }
+    }
+    let p1 = new People('dzz',26);
+    let p2 = new People('xqr',26);
+    console.log(p1.age === p2.age);
+    console.log(p1.sayHello === p2.sayHello);
+    console.log(p1.sayHello);
+    console.log(p2.sayHello);
+    console.log(p1.__proto__.sayHello === p2.__proto__.sayHello);
+    console.log("------------------");
+    //使用原型对象构造
+    function Student2(name,age) {
+        this.name = name;
+        this.age = age;
+        this.sayHi = function () {
+            console.log("hi "+this.name+" You are "+this.age);
+        };
+        if(typeof this.sayHello2 !== 'function'){
+            this.sayHello2 = function () {
+                console.log('sayHELLO2');
+            }
+        }
+    }
+    Student2.prototype.sayHello = function () {
+        console.log("hello "+this.name+" You are "+this.age);
+    };
+    let stu3 = new Student2('dzz',26);
+    let stu4 = new Student2('xqr',26);
+    console.log(stu3.age === stu4.age);
+    console.log(stu3.sayHello === stu4.sayHello);
+    console.log(stu3.sayHello);
+    console.log(stu4.sayHello);
+    console.log(stu3.__proto__.sayHello === stu4.__proto__.sayHello);
+    console.log("------------------");
+    //函数的继承使用apply和call
+    function HighStudent(name,age,grade) {
+        Student2.apply(this,arguments);
+        this.grade = grade;
+    }
+    let me = new HighStudent('dzzH','20','大一');
+    console.log(me.name);
+    me.sayHi();
+    me.sayHello2();
+    console.log("***************************");
+</script>
+</html>

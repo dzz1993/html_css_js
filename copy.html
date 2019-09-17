@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>shallowCopy and deepCopy</title>
+</head>
+<body>
+
+</body>
+<script>
+    let obj = {
+        name:'dzz',
+        family:['mother','father'],
+        sex:'male',
+        skill:{
+            'english':508,
+            'computer':'三级'
+        }
+    };
+    //浅拷贝，对象的第一层，obj和res是同一数据类型，同obj或者同arr
+    function shallowCopy(obj,res) {
+        for(let i in obj){
+            if(obj.hasOwnProperty(i)){
+                res[i] = obj[i];
+            }
+        }
+        return res;
+    }
+    //深拷贝，obj和res是同一类型数据，同obj或者arr
+    function deepCopy(obj,res) {
+        res = res || {};
+        for(let i in obj){
+            if(obj.hasOwnProperty(i)) {
+                if(typeof obj[i] === 'object'){
+                    if(obj.constructor === Array){
+                        res[i] = [];
+                    }else{
+                        res[i] = {};
+                    }
+                    deepCopy(obj[i],res[i]);
+                }else{
+                    res[i] = obj[i];
+                }
+            }
+        }
+        return res;
+    }
+    let newShallow = {};
+    let newDeep ={};
+    newShallow = shallowCopy(obj,newShallow);
+    newDeep = deepCopy(obj,newDeep);
+    obj.family[1] = 'Father';
+    console.log(newShallow);
+    console.log(newDeep);
+
+    //测试constructor
+    class Student{
+        constructor(name,age){
+            this.name = name;
+            this.age = age;
+        }
+    }
+    let stu = new Student('dzz',26);
+    let arr = {};
+    let num = 20;
+    let bool = false;
+    console.log(stu.constructor===Student);
+    console.log(arr.constructor);
+    console.log(num.constructor===Number);
+    console.log(bool.constructor===Boolean);
+</script>
+
+
+
+</html>

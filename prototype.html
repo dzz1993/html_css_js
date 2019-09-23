@@ -82,5 +82,32 @@
     me.sayHi();
     me.sayHello2();
     console.log("***************************");
+
+    //给String加一个方法，实现把string加字符返回
+    String.prototype.addSpace = function () {
+        return this.split('').join(' ');
+    };
+    let str = 'hello';
+    let str2 = str.addSpace();
+    console.log(str2);
+
+    //filter和includes，
+    let bigArr=["dzz is a good student","dzz is a good boy","dzz is a bad boy"];
+    let smallStr = "good";
+    let newArr = bigArr.filter((item)=>{
+        if(item.includes(smallStr)){
+            return true
+        }
+    });
+    console.log(newArr);
+    //使用findIndex照样可以实现
+    let newFind = bigArr.filter((item)=>{
+       if(bigArr.indexOf(item) !== -1){
+           return true;
+       }
+    });
+    console.log(newFind);
+
+
 </script>
 </html>

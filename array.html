@@ -10,6 +10,49 @@
     let arr = [1,2,3,4,5,6];
     arr.splice(3);
     console.log(arr);
+    //判断是否为数组的三种方法
+    let obj={name:"dzz","my-love":'xqr'};
+    //方法1，先判断对象typeof obj === 'object'，在用构造函数 obj.constructor === Array：
+    if(typeof arr === 'object'){
+        if(arr.constructor === Array){
+            console.log("arr is array");
+        }else{
+            console.log("arr is object");
+        }
+    }else{
+        console.log("arr is not object");
+    }
+    if(typeof obj === 'object'){
+        if(obj.constructor === Array){
+            console.log("obj is array");
+        }else{
+            console.log("obj is object");
+        }
+    }else{
+        console.log("obj is not array");
+    }
+    //方法二，使用,instanceof
+    if(arr instanceof Array){
+        console.log("arr is array");
+    }else{
+        console.log("arr is not array");
+    }
+    if(obj instanceof Array){
+        console.log("obj is array");
+    }else{
+        console.log("obj is not array");
+    }
+    //方法三：使用Array.isArray(obj);
+    if(Array.isArray(arr)){
+        console.log("arr is array");
+    }else{
+        console.log("arr is not array");
+    }
+    if(Array.isArray(obj)){
+        console.log("obj is array");
+    }else{
+        console.log("obj is not array");
+    }
 </script>
 </body>
 </html>

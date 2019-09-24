@@ -69,6 +69,20 @@
     nAdd(); //输出当前n的值1000
     var result2 = f1();
     result2();//输出0，result和result2虽然都存储的是f2代码（闭包），但是两个代码在堆内存中的位置不同，其内部变量不是一个变量
+
+    //str.replace,测试一个操作
+    let str111 = "my name is dzz,I am a good-boy";
+    let newStr = str111.replace(/\b\w+\b(\w+)/g,function(reg){
+        console.log(reg);
+        return reg.charAt(0).toUpperCase()+reg.slice(1);
+    });
+    console.log(newStr);
+    //使用()
+    let str112 = "dzz-is-good";
+    let newStr2 = str112.replace(/-(\w+)/g,function (reg,word) {
+        return word.charAt(0).toUpperCase()+word.slice(1);
+    });
+    console.log(newStr2);
 </script>
 </body>
 </html>

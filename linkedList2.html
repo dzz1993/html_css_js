@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>双向链表linkedList相关-感觉有点浪费时间-曾经学过</title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    //链表需要实现的功能
+    /* 1、append(element)
+    *  2、insert(position,element);
+    *  3、get(position)
+    *  4、indexOf(element) 没有就返回-1
+    *
+    *  removeAt(position)
+    *  remove(element)
+    * */
+    function LinkedList() {
+        //内部node类装链表的元素
+        function Node(element){
+            this.element = element;
+            this.next = null;
+            this.prev = null;
+        }
+        //定义一个head指向null
+        this.head = null;
+        //定义一个tail指向null
+        this.tail = null;
+        //定义一个长度用来存储length
+        this.length = 0;
+        //添加字段1、如果是第一个添加的节点，就把head直接指向新节点，如果
+        LinkedList.prototype.append = function (element) {
+
+        };
+        LinkedList.prototype.toString = function () {
+
+        };
+        LinkedList.prototype.get = function (position) {
+
+        };
+        //更新方法，和get几乎一致
+        LinkedList.prototype.update = function(position,val){
+
+        };
+        LinkedList.prototype.insert = function (position,value) {
+
+        };
+        LinkedList.prototype.indexOf = function (val) {
+
+        };
+        //删除相关操作
+        LinkedList.prototype.removeAt = function (position) {
+
+        }
+    }
+
+    //集合set类的相关测试放在这里
+    let arr = ['aaa','bbb','ccc','ddd','ccc'];
+    let set = new Set(arr);
+    console.log(set);
+    let arr2=[];
+    set.forEach(val=>{
+        arr2.push(val);
+    });
+    console.log(arr2);
+
+</script>
+</body>
+</html>

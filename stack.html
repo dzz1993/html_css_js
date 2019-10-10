@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>栈的相关练习</title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    /*
+    * 栈的操作
+    * 1、push
+    * 2、pop
+    * 3、peek
+    * 4、isEmpty
+    * 5、size
+    * 6、toString，把栈中元素方便打印出来
+    * */
+
+    //使用数组封装栈
+    function Stack() {
+        this.items = [];
+        //相关方法调用数组相关方法实现原型方法
+        Stack.prototype.push = function (item) {
+            this.items.push(item);
+        };
+        Stack.prototype.pop = function () {
+            return this.items.pop();
+        };
+        Stack.prototype.peek = function () {
+            return this.items[this.items.length-1];
+        };
+        Stack.prototype.isEmpty = function(){
+            return this.items.length === 0;
+        };
+        Stack.prototype.size = function () {
+            return this.items.length;
+        };
+        Stack.prototype.toString = function (str) {
+            return this.items.join(str);
+        }
+    }
+    //使用
+    let s = new Stack();
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    console.log(s.peek());
+    console.log(s.isEmpty());
+    console.log(s.size());
+    console.log(s.toString(' '));
+    //栈的应用:十进制转为二进制
+    function dec2bin(number){
+        let stack = new Stack();
+        while(number!==0){
+            stack.push(number%2);
+            number = parseInt(number/2);
+        }
+        let dec = "";
+        while(!stack.isEmpty()){
+            dec+=stack.pop();
+        }
+        return dec;
+    }
+    console.log(dec2bin(100));
+    //使用链表实现栈
+</script>
+</body>
+</html>

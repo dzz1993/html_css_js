@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>链表linkedList相关</title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+    //链表需要实现的功能
+    /* 1、append(element)
+    *  2、insert(position,element);
+    *  3、get(position)
+    *  4、indexOf(element) 没有就返回-1
+    *
+    *  removeAt(position)
+    *  remove(element)
+    * */
+    function LinkedList() {
+        //内部node类装链表的元素
+        function Node(element){
+            this.element = element;
+            this.next = null;
+        }
+        //定义一个head指向null
+        this.head = null;
+        //定义一个长度用来存储length
+        this.length = 0;
+        //添加字段1、如果是第一个添加的节点，就把head直接指向新节点，如果
+        LinkedList.prototype.append = function (element) {
+            let node = new Node(element);
+            if(this.head === null){
+                this.head = node;
+            }else{
+                //思路就是顺着head往下找，直到找到最后一个即current.next = null
+                let current = this.head;
+                while(current.next){
+                    current = current.next;
+                }
+                current.next = node;
+            }
+            this.length+=1;
+        };
+        LinkedList.prototype.toString = function () {
+            let current = this.head;
+            let string = "";
+            while (current){
+                string += ","+current.element;
+                current = current.next;
+            }
+            return string.slice(1);
+        };
+        LinkedList.prototype.get = function (position) {
+            let current = this.head;
+            if(position<0 || position>this.length-1){
+                return null;
+            }
+            while(position>0){
+                current = current.next;
+                position-=1;
+            }
+            return current.element;
+        };
+        //更新方法，和get几乎一致
+        LinkedList.prototype.update = function(position,val){
+            if(position<0 || position>=this.length){
+                return null;
+            }
+            let current = this.head;
+            while(position>0){
+                current = current.next;
+                position--;
+            }
+            current.element = val;
+        };
+        LinkedList.prototype.insert = function (position,value) {
+            if(position<0 || position > this.length-1){
+                return false;
+            }
+            let newNode = new Node(value);
+            //插入判断是否是第一个
+            if(position === 0){
+                newNode.next = this.head;
+                this.head = newNode;
+            }else{
+                let previous = null;
+                let current = this.head;
+                while (position>0){
+                    previous = current;
+                    current = current.next;
+                    position--;
+                }
+                previous.next = newNode;
+                newNode.next = current;
+            }
+            this.length++;
+        };
+        LinkedList.prototype.indexOf = function (val) {
+            let index = 0;
+            let current = this.head;
+            while(current){
+                if(current.element === val){
+                    return index;
+                }
+                current = current.next;
+                index+=1;
+            }
+            return -1;
+        };
+        //删除相关操作
+        LinkedList.prototype.removeAt = function (position) {
+            if(position<0 || position>=this.length){
+                return false;
+            }
+            //判断是否是第一个位置删除
+            if(position === 0){
+                this.head = this.head.next;
+            }else{
+                let previous = null;
+                let current = this.head;
+                while(position>0){
+                    previous = current;
+                    current = current.next;
+                    position-=1;
+                }
+                let next = current.next;
+                current.next=null;
+                previous.next = next;
+            }
+        }
+    }
+    let linkedList = new LinkedList();
+    linkedList.append('aaa');
+    linkedList.append('bbb');
+    linkedList.append('ccc');
+    linkedList.append('eee');
+    console.log(linkedList);
+    let str = linkedList.toString();
+    console.log(str);
+    let ele = linkedList.get(2);
+    console.log(ele);
+    linkedList.insert(4,'bbc');
+    console.log(linkedList.toString());
+    console.log(linkedList.indexOf('ccc'));
+    console.log(linkedList.indexOf('abc'));
+    console.log("--------------");
+    linkedList.update(2,'dzz');
+    console.log(linkedList.toString());
+    console.log("--------------");
+    linkedList.removeAt(0);
+    console.log(linkedList.toString());
+</script>
+</body>
+</html>

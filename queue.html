@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实现队列</title>
+</head>
+<body>
+<script type="text/javascript">
+    /*
+    * 堆的操作
+    * 1、enqueue
+    * 2、dequeue
+    * 3、front
+    * 4、isEmpty
+    * 5、size
+    * 6、toString，把栈中元素方便打印出来
+    * */
+    //数组形式的队列
+    //记住一点，主流：把队列想象成从右向左走<-
+    function Queue() {
+        this.items = [];
+        Queue.prototype.enqueue = function (e) {
+            this.items.push(e);
+        };
+        Queue.prototype.dequeue = function () {
+            return this.items.shift();
+        };
+        Queue.prototype.front = function () {
+            return this.items[0];
+        };
+        Queue.prototype.isEmpty = function () {
+            return this.items.length === 0;
+        };
+        Queue.prototype.size = function () {
+            return this.items.length;
+        };
+        Queue.prototype.toString = function (sep) {
+            return this.items.join(sep)
+        }
+    }
+    //队列实例：击鼓传花，围圈数数，出队列入队列，符合条件出队列不如队列
+    function getWinner(nameList,num) {
+        let queue = new Queue();
+        nameList.forEach((e)=>{
+            queue.enqueue(e);
+        });
+        if(queue.isEmpty()){
+            return 0;
+        }
+        while (queue.size > 1){
+            for(let i=0;i<num-1;i++){
+                queue.enqueue(queue.dequeue());
+            }
+            queue.dequeue();
+        }
+        return queue.front();
+    };
+    let nameList = ['a','b','c','d','e','f'];
+    let winner = getWinner(nameList,3);
+    console.log(winner);
+
+    //优先级队列，优先级队列的元素包含元素值和优先级，封装一个优先级队列
+    function PriorityQueue() {
+        function QueueElement(ele,priority) {
+            this.ele = ele;
+            this.priority = priority;
+        }
+        this.items = [];
+        PriorityQueue.prototype.enqueue = function (ele,priority) {
+            //新建一个队列元素
+            let element = new QueueElement(ele,priority);
+            //入队需要考虑优先级,如果没有元素就直接插入，如果有元素就比较优先级,优先级降序
+            if(this.items.length === 0){
+                this.items.push(element);
+            }else{
+                let flag=0;
+                for(let i=0;i<this.items.length;i++){
+                    if(this.items[i].priority>=priority){
+                        this.items.splice(i,0,element);
+                        flag =1 ;
+                        break;
+                    }
+                }
+                if(!flag){
+                    this.items.push(element);
+                }
+            }
+        };
+        PriorityQueue.prototype.dequeue = function () {
+            return this.items.shift();
+        };
+        PriorityQueue.prototype.front = function () {
+            return this.items[0];
+        };
+        PriorityQueue.prototype.isEmpty = function () {
+            return this.items.length === 0;
+        };
+        PriorityQueue.prototype.size = function () {
+            return this.items.length;
+        };
+        PriorityQueue.prototype.toString = function (sep) {
+            return this.items.join(sep)
+        }
+    }
+    //test
+    let priorityQueue = new PriorityQueue();
+    priorityQueue.enqueue('dzz',26);
+    priorityQueue.enqueue('ccc',2);
+    priorityQueue.enqueue('aaa',23);
+    priorityQueue.enqueue('ccd',11);
+    priorityQueue.enqueue('xqr',24);
+    console.log(priorityQueue);
+</script>
+
+</body>
+</html>

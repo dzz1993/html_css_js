@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据结构集合类的封装</title>
+</head>
+<body>
+<script type="text/javascript">
+    //主要为了练习一下对象
+    function Set() {
+        this.items = {};
+        Set.prototype.add = function (value) {
+            //判断是否含有属性
+            if(this.has(value)){
+                return false;
+            }
+            this.items[value] = value;
+            return true;
+        };
+        Set.prototype.has = function (value) {
+            return this.items.hasOwnProperty(value);//对象的hasOwnProperty
+        };
+        //删除元素，判断是否存在,存在再delete
+        Set.prototype.remove = function (value) {
+            if(!this.has(value)){
+                return false;
+            }
+            delete this.items[value];
+            return true;
+        }
+    }
+    let set = new Set();
+    set.add('dzz');
+    console.log(set);
+
+    //对象操作
+    let obj = {};
+    obj['aaa'] = 'aaa';
+    console.log(obj);
+
+</script>
+</body>
+</html>

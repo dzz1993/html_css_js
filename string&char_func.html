@@ -83,6 +83,17 @@
         return word.charAt(0).toUpperCase()+word.slice(1);
     });
     console.log(newStr2);
+    //统计一个字符出现的次数
+    let obj = {};
+    let str113 = "adhjfhaskfeufhehfdahf263y849r7549t";
+    for(let i=0,len= str113.length;i<len;i++){
+        if(!obj[str113[i]]){
+            obj[str113[i]]=1;
+        }else{
+            obj[str113[i]]++;
+        }
+    }
+    console.log(obj);
 </script>
 </body>
 </html>

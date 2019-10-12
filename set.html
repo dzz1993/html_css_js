@@ -10,7 +10,7 @@
     function Set() {
         this.items = {};
         Set.prototype.add = function (value) {
-            //判断是否含有属性
+            //判断是否含有属性，原型函数内部的this指向：指向当前操作实例
             if(this.has(value)){
                 return false;
             }
@@ -27,16 +27,59 @@
             }
             delete this.items[value];
             return true;
-        }
+        };
+        //clear方法
+        Set.prototype.clear = function () {
+            this.items = {};
+        };
+        //set的长度
+        Set.prototype.size = function () {
+            return Object.keys(this.items).length;
+        };
+        //获取所有值
+        Set.prototype.values = function () {
+            return Object.keys(this.items);
+        };
+        //集合间的操作：交集、并集、差集、补集
+        //并集union
+        Set.prototype.union = function (otherSet) {
+            let resultSet = new Set();
+            let val1 = this.values();
+            console.log(val1);
+            for(let i=0;i<this.size();i++){
+                resultSet.add(val1[i]);
+            }
+            let val2 = otherSet.values();
+            for (let i=0;i<otherSet.size();i++){
+                resultSet.add(val2[i]);
+            }
+            return resultSet;
+        };
+        //交集intersection
+        Set.prototype.intersection = function (otherSet) {
+            let resultSet = new Set();
+            let val2 = otherSet.values();
+            for(let i=0;i<otherSet.size();i++){
+                if(this.has(val2[i])){
+                    resultSet.add(val2[i]);
+                }
+            }
+            return resultSet;
+        };
+
     }
     let set = new Set();
     set.add('dzz');
-    console.log(set);
-
-    //对象操作
-    let obj = {};
-    obj['aaa'] = 'aaa';
-    console.log(obj);
+    set.add('xqr');
+    console.log(Object.keys(set.items));
+    console.log(set.size());
+    let otherSet = new Set();
+    otherSet.add('dzz2');
+    otherSet.add('xqr');
+    let result = set.union(otherSet);
+    console.log(result);
+    let result2 = set.intersection(otherSet);
+    console.log(result2);
 
 </script>
 </body>

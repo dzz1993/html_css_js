@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>es6测试用</title>
+</head>
+<body>
+
+<script type="module">
+    //测试对象解构
+    let json = {
+        "name":"dzz",
+        "age":26
+    }
+    let {name,age} = json;
+    console.log(name);
+    //对象的import
+    import student,{hello} from "./export.js";
+    student.study();
+    console.log(hello);
+    console.log(student.sex);
+    //indexOf和includes的简单应用
+    let big = "abbccdd";
+    let small = "bcc";
+    //indexOf
+    console.log(big.indexOf(small));
+    console.log(big.includes(small));
+    //字符串相关的api
+    //startWith和endWith
+    //判断https协议
+    let str = ['https://www.baidu.com',"https:www.google.com","http://123.120.89.1"];
+    let res1 = str.filter((e)=>{
+        if(e.startsWith("https")){
+            return true;
+        }
+    })
+    console.log(res1);
+    //判断jpg后缀
+    let str2 = ['1.jpg','2.png','3.jpg'];
+    let res2 = str2.filter((e)=>{
+        if(e.endsWith('jpg')){
+            return true;
+        }
+    })
+    console.log(res2);
+
+    //字符串模板${aaa}
+    let num = 26
+    let intro = `my age is ${num}`;
+    console.log(intro);
+    //调用sort完成排序
+    import arrayList from './js/sort.js';
+    let arr = [1,7,3,34,345,2,34,309];
+    let arr2 = [1,7,3,34,345,2,34,309];
+    let arr3 = [1,7,3,34,345,2,34,309];
+    let arr4 = [1,7,3,34,345,2,34,309];
+    let arr5 = [1,7,3,34,345,2,34,309];
+    let array = new arrayList(arr);
+    let array2 = new arrayList(arr2);
+    let array3 = new arrayList(arr3);
+    let array4 = new arrayList(arr4);
+    let array5 = new arrayList(arr5);
+    console.log(array.bubbleSort());
+    console.log(array2.chooseSort());
+    console.log(array3.insertSort());
+    console.log(array4.shellSort());
+    console.log(array5.quickSort());
+</script>
+
+</body>
+</html>

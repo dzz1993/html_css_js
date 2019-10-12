@@ -7,47 +7,79 @@
 
     <link rel="stylesheet" type="text/css" href="css/dzz_style.css">
     <title>same</title>
+    <style>
+		.s1{
+			width: 100px;
+			height: 50px;
+			border: 1px solid #ccc;
+		}
+		.s12{
+			background: #ddd;
+		}
+		.s11{
+			background-color: #666;
+		}
+    </style>
 </head>
 <body>
+<div class="s1"></div>
 <script type="text/javascript">
-    //测试一下函数声明和函数表达式
-    fn1();
-    //fn2();//报错
-
-    //函数声明
-    function fn1() {
-        console.log("函数声明");
-    }
-    let fn2 = function() {
-        console.log("函数表达式");
-    };
-    console.log('****');
-    fn1();
-    fn2();
-
-    //用log代理console.log
-    function log(msg) {
-        console.log(msg);
-    }
-    function log2() {
-        console.log.apply(this,arguments);
-    }
-    log("log");
-    log2("log2");
-    //bind绑定上下文
-    let Obj = {
-        count:1,
-        addCount:function () {
-            this.count++;
-            console.log(this.count);
-        }
-    };
-    //执行addCount
-    let func = Obj.addCount;
-    func();
-    Obj.addCount();//
-    let fun = Obj.addCount.bind(Obj);//绑定执行上下文对象为Obj
-    fun();
+	function fn(){
+		console.log(fn.name);
+		console.log(fn.length);
+		console.log(arguments.length);
+	}
+	fn(1,2);
+	function Fn(){
+		this.x=2;
+	}
+	Fn.prototype.y=3;
+	var f1=new Fn();
+	console.log(f1.x);
+	console.log(f1.y);
+	console.log("x="+f1.__proto__.x);
+	console.log("y="+f1.__proto__.y);
+	var flag=0;
+	var div1=document.querySelector('.s1');
+	/*div1.onclick=function(){
+		if(flag==1){
+			div1.setAttribute('class','s1');
+			div1.classList.add('s12');
+		}
+		else{
+			div1.setAttribute('class','s1');
+			div1.classList.add('s11');
+		}
+		flag++;
+		flag %= 2;
+	}*/
+	div1.addEventListener('click',function(){
+		if(flag==1){
+			div1.setAttribute('class','s1');
+			div1.classList.add('s12');
+		}
+		else{
+			div1.setAttribute('class','s1');
+			div1.classList.add('s11');
+		}
+		flag++;
+		flag %= 2;
+	})
+	function getRadom(number){
+		var charTable=['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+		var val="";
+ 		for(var i=0;i<number;i++){
+ 			val+=charTable[Math.ceil(Math.random()*35)];
+ 		}
+ 		return val;
+	}
+	console.log(getRadom(10));
+//	document.onkeydown=function(e){
+//		console.log(e.keyCode);
+//	}
+//	document.addEventListener('click',function(e){
+//		console.log(e.clientX,e.clientY);
+//	})
 </script>
 </body>
 </html>

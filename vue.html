@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue 引用js</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    {{message}}
+    <input v-model="name"/>
+    <input @input="name = $event.target.value" :value="name"/>
+    <div v-for="item in list" :key="item">
+        {{item}}
+    </div>
+    <div v-for="item in complexList" :class="{'red':item.flag}">
+        {{item}}
+    </div>
+    <div v-for="item in obj" :key="item">
+        {{item}}
+    </div>
+    <div v-for="item in activeList">
+        {{item}}
+    </div>
+    <button @click="getName">点击获取</button>
+    <button @click="changeList">点击改变</button>
+    <Child ref="child" @parent_fun="hello" :content="name"></Child>
+    <button @click="getChild">获取子组件的方法</button>
+</div>
+<script type="module">
+    //import Child from './component/child.vue';//import引入出错
+    ~(function(){
+        Vue.prototype.$myset = function (obj,index,value) {
+            //console.log("myset");
+            if(typeof obj === 'object'){
+                if(obj.constructor === Array){
+                    obj.splice(index,1,value);
+                }else{
+                    //使用Object的函数assign，实现对象的浅拷贝
+                    //对象怎么处理我也不清楚
+                    obj[index] = value;
+                    obj = Object.assign({},obj);
+                    //console.log(obj);
+                }
+            }
+        }
+    })()
+    let Child = Vue.extend({
+        template: '<div><h2>{{ myContent }}</h2>' +
+            '<button @click="changeContent">点击改变</button>' +
+            '<button @click="getParent">获取父组件方法</button></div>',
+        props: {
+            content: {
+                type: String,
+                default: () => { return 'from child' }
+            }
+        },
+        methods:{
+            changeContent:function () {
+                this.myContent= "your";
+            },
+            getParent:function () {
+                this.$emit('parent_fun');
+            }
+        },
+        data:function(){
+            return {
+                myContent:this.content
+            }
+        },
+        computed:{
+            myContent2:function(){
+                return this.content.toLowerCase();
+            }
+        }
+    })
+    let app = new Vue({
+        el:'#app',
+        components:{Child},
+        //render:c=>c(Child),//render方法是替换掉了目标el中的所有内容
+        data:{
+            message:"dzz test",
+            name:'Dzz',
+            list:[1,2,3],
+            obj:{name:'dzz',age:26},
+            complexList:[
+                {name:"dzz",flag:1},
+                {name:'xqr',flag:0}
+            ]
+        },
+        methods:{
+            getName:function () {
+                console.log(this.name);
+            },
+            changeList:function () {
+                this.list.length = 4;
+                this.list[2]=4;
+                //this.list.splice(1,1,6);
+                //this.obj.work = 'bad';
+                this.obj.name='xqr';
+                //app.$set(this.list,2,6);
+                //this.obj={"new":1}
+                app.$myset(this.obj,'name','xqrrr');
+                //console.log(this.list);
+                //console.log(this.obj);
+            },
+            hello:function(){
+                console.log("parent function is here");
+            },
+            getChild:function () {
+                this.$refs.child.getParent();
+            }
+        },
+        watch:{
+            list:function(){
+                console.log("list is changed");
+            },
+            obj:function () {
+                console.log("obj is changed");
+            }
+        },
+        computed: {
+            parent_name:function () {
+                return this.name;
+            },
+            activeList:function () {
+                return this.complexList.filter((item)=>{
+                    return item.flag === 1;
+                })
+            }
+        }
+    })
+</script>
+<style scoped>
+    .red{
+        color: red;
+    }
+</style>
+</body>
+</html>

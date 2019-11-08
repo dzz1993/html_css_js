@@ -18,26 +18,51 @@
         }
     };
     //浅拷贝，对象的第一层，obj和res是同一数据类型，同obj或者同arr
+    // function shallowCopy(obj,res) {
+    //     for(let i in obj){
+    //         if(obj.hasOwnProperty(i)){
+    //             res[i] = obj[i];
+    //         }
+    //     }
+    //     return res;
+    // }
     function shallowCopy(obj,res) {
         for(let i in obj){
             if(obj.hasOwnProperty(i)){
                 res[i] = obj[i];
             }
         }
-        return res;
     }
     //深拷贝，obj和res是同一类型数据，同obj或者arr
-    function deepCopy(obj,res) {
+    // function deepCopy(obj,res) {
+    //     res = res || {};
+    //     for(let i in obj){
+    //         if(obj.hasOwnProperty(i)) {
+    //             if(typeof obj[i] === 'object'){
+    //                 if(obj.constructor === Array){
+    //                     res[i] = [];
+    //                 }else{
+    //                     res[i] = {};
+    //                 }
+    //                 deepCopy(obj[i],res[i]);
+    //             }else{
+    //                 res[i] = obj[i];
+    //             }
+    //         }
+    //     }
+    //     return res;
+    // }
+    function deepCopy(obj,res){
         res = res || {};
         for(let i in obj){
-            if(obj.hasOwnProperty(i)) {
+            if(obj.hasOwnProperty(i)){
                 if(typeof obj[i] === 'object'){
-                    if(obj.constructor === Array){
+                    if(Array.isArray(obj[i])){
                         res[i] = [];
                     }else{
                         res[i] = {};
                     }
-                    deepCopy(obj[i],res[i]);
+                    deepCopy(res[i],obj[i]);
                 }else{
                     res[i] = obj[i];
                 }
@@ -52,6 +77,8 @@
     obj.family[1] = 'Father';
     console.log(newShallow);
     console.log(newDeep);
+
+
 
     //测试constructor
     class Student{

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>drag&drop H5的拖拽API</title>
+</head>
+<body>
+<div id="dragElement" ondragend="dragEnd(this)">
+
+</div>
+<div id="dropElement" ondrop="drop(this)">
+
+</div>
+<script type="text/javascript">
+    dragElement.ondragstart = function () {
+        console.log("ondragstart");
+    }
+    function dragEnd(e) {
+        console.log("ondragend");
+    }
+    function drop(e) {
+        console.log("ondrop");
+        let newNode = document.querySelector("#dragElement").cloneNode();
+        document.removeChild(document.querySelector("#dragElement"));
+        document.querySelector("dropElement").appendChild(newNode);
+    }
+</script>
+<style>
+    #dragElement{
+        width: 50px;
+        height: 50px;
+        background-color: #4cae4c;
+    }
+    #dropElement{
+        border: 1px solid #ccc;
+        width: 500px;
+        height: 300px;
+    }
+</style>
+</body>
+</html>

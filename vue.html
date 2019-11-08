@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>vue 引用js</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <!--单个页面搞测试直接去bootCDN找就行-->
+    <script src="https://cdn.bootcss.com/vuex/3.1.1/vuex.js"></script>
+    <script src="https://cdn.bootcss.com/pubsub-js/1.7.0/pubsub.js"></script>
 </head>
 <body>
 <div id="app">
@@ -26,9 +30,19 @@
     <button @click="changeList">点击改变</button>
     <Child ref="child" @parent_fun="hello" :content="name"></Child>
     <button @click="getChild">获取子组件的方法</button>
+    <transition name="name">
+        <div v-if="flag" class="box">
+
+        </div>
+    </transition>
+    <button @click="showHide">隐藏/显示</button>
+    <router-view></router-view>
+    <router-link to="/child">跳转路由</router-link>
 </div>
 <script type="module">
     //import Child from './component/child.vue';//import引入出错
+    //import {sayHello} from "./export";
+
     ~(function(){
         Vue.prototype.$myset = function (obj,index,value) {
             //console.log("myset");
@@ -44,11 +58,18 @@
                 }
             }
         }
-    })()
+    })();
+
+
     let Child = Vue.extend({
         template: '<div><h2>{{ myContent }}</h2>' +
             '<button @click="changeContent">点击改变</button>' +
-            '<button @click="getParent">获取父组件方法</button></div>',
+            '<button @click="getParent">获取父组件方法</button>' +
+            '<div>现在的全局数目：{{this.$store.state.number}}</div>' +
+            '<div>使用getters:{{this.$store.getters.getNumber}}</div>' +
+            '<button @click="inc">全局增加1</button>' +
+            '<button @click="incTwo">全局增加2</button>' +
+            '<button @click="incTwoPlus3">全局增加2再减去3</button></div>',
         props: {
             content: {
                 type: String,
@@ -61,6 +82,15 @@
             },
             getParent:function () {
                 this.$emit('parent_fun');
+            },
+            inc:function () {
+                this.$store.dispatch('increment');
+            },
+            incTwo:function () {
+                this.$store.dispatch('increment2',2);
+            },
+            incTwoPlus3:function () {
+                this.$store.dispatch("increment3",{'step1':2,'step2':3});
             }
         },
         data:function(){
@@ -68,12 +98,63 @@
                 myContent:this.content
             }
         },
+        created:function(){
+            PubSub.publish('pubMsg','myContent');
+        },
         computed:{
             myContent2:function(){
                 return this.content.toLowerCase();
             }
         }
+    });
+    let routes = [
+        {
+            path:'/child',
+            name:'Child',
+            component:Child
+        }
+    ];
+    let router = new VueRouter({
+        routes:routes
+    });
+    //使用vuex
+    Vue.use(Vuex);
+    let store = new Vuex.Store({
+        state:{
+            number:20
+        },
+        getters:{
+            getNumber:function (state) {
+                return "现在的数目是："+ state.number;
+            }
+        },
+        mutations:{
+            doInc:function (state) {
+                state.number++;
+            },
+            doInc2:function (state,step) {
+                state.number+=step;
+            },
+            doInc3:function (state,arg) {
+                state.number = state.number+arg['step1']-arg['step2'];
+            }
+        },
+        actions:{
+            increment:function (context) {
+                context.commit("doInc");
+            },
+            increment2:function (context,step) {
+                context.commit("doInc2",step);
+            },
+            increment3:function (context,arg) {
+                context.commit("doInc3",arg);
+            }
+        }
     })
+
+
+
+
     let app = new Vue({
         el:'#app',
         components:{Child},
@@ -81,12 +162,20 @@
         data:{
             message:"dzz test",
             name:'Dzz',
+            flag:false,
             list:[1,2,3],
             obj:{name:'dzz',age:26},
             complexList:[
                 {name:"dzz",flag:1},
                 {name:'xqr',flag:0}
             ]
+        },
+        created:function(){
+            //this.sayHello();
+            window.addEventListener("keydown",this.sayHello);
+        },
+        beforeDestory:function(){
+            window.removeEventListener("keydown",this.sayHello,false);
         },
         methods:{
             getName:function () {
@@ -109,8 +198,17 @@
             },
             getChild:function () {
                 this.$refs.child.getParent();
+            },
+            sayHello:function () {
+                console.log("hello");
+                console.log(new VueRouter);
+            },
+            showHide:function () {
+                this.flag = !this.flag;
             }
         },
+        router:router,
+        store:store,
         watch:{
             list:function(){
                 console.log("list is changed");
@@ -134,6 +232,21 @@
 <style scoped>
     .red{
         color: red;
+    }
+    .box{
+        width: 100px;
+        height: 100px;
+        background-color: #ccc;
+    }
+    .name-enter,.name-leave-to{
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    .name-enter-to,.name-leave{
+        opacity: 100%;
+    }
+    .name-enter-active, .name-leave-active{
+        transition:all 1s ease;
     }
 </style>
 </body>

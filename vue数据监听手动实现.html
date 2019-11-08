@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监听数据</title>
+</head>
+<body>
+<div key="mykey"></div>
+<input oninput="changeKey(this)" type="text" value="val"/>
+
+<span key="name"></span>
+<span key="age"></span>
+<span key="sex"></span>
+<input oninput="changeName(this)" type="text" value="">
+<input oninput="changeAge(this)" type="text" value="">
+<input oninput="changeSex(this)" type="text" value="">
+
+<script type="text/javascript">
+    let obj = {
+        mykey:'dzz'
+    }
+    Object.defineProperty(obj,'mykey',{
+      //value:'ori',
+      get:function () {
+          return obj['mykey'];
+      },
+      set:function (value) {
+          document.querySelector("[key=mykey]").innerHTML = value;
+      }
+    });
+    let complexObj = {
+        name:'dzz',
+        age:15,
+        sex:'famale'
+    }
+    Object.keys(complexObj).forEach((key)=>{
+        Object.defineProperty(complexObj,key,{
+            get:function () {
+                return complexObj.key;
+            },
+            set:function (value) {
+                document.querySelector("[key="+key+"]").innerHTML = value;
+            }
+        })
+    })
+
+    function changeKey(target) {
+        //console.log(target);
+        obj.mykey = target.value;
+    }
+    function changeName(target) {
+        complexObj.name = target.value;
+        //console.log(Object.keys(complexObj));
+    }
+    function changeAge(target) {
+        complexObj.age = target.value;
+    }
+    function changeSex(target) {
+        complexObj.sex = target.value;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则表达式的一些测试</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    let str = "I am dzz";
+    let str2 = "addSomethingToHere";
+    //所有字母首字母大写
+    str = str.replace(/\b\w+\b/g,function (item) {
+        return item.charAt(0).toUpperCase()+item.slice(1);
+    })
+    console.log(str);
+    //驼峰变点划线
+    str2 = str2.replace(/[A-Z]/g,function (item) {
+        return '-'+item.toLowerCase();
+    })
+    console.log(str2);
+    //点划线变驼峰
+    str2 = str2.replace(/-(\w)/g,function (item,reg) {
+        return reg.toUpperCase();
+    })
+    console.log(str2);
+</script>
+
+
+</html>

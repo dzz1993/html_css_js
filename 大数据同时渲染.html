@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>大数据同时渲染</title>
+</head>
+<body>
+<div id="container">
+
+</div>
+<script type="text/javascript">
+    let container = document.querySelector("#container");
+    let list = [];
+    for(let i=0;i<100000;i++){
+        list[i] = i;//制造10000个假数据
+    }
+    console.log(list);
+    let tempGroup = 0;//定义一个全局变量计算当前group
+    function loadAll(list,groups) {
+        let num = Math.floor(list.length/groups);
+        for(let i=0;i<groups;i++){
+            setTimeout(function () {
+                let start = i*num;
+                let end = (i+1)*num;
+                if(i===groups-1){
+                    end= list.length;
+                }
+                loadPart(list,start,end,i,groups);
+            },1);
+        };
+
+    }
+    function loadPart(list,start,end,i,groups) {
+        let newNode = ""
+        for(let j=start;j<end;j++){
+            newNode += '<li>'+j+'</li>';
+        }
+        while(i===tempGroup){
+            container.innerHTML+=newNode;
+            tempGroup++;
+            if(tempGroup === groups-1){
+                console.log("全部加载完毕!");//加载完毕的逻辑
+            }
+        }
+    };
+    //调用loadAll
+    //loadAll(list,50);
+    //使用promise的初步测试
+    console.log("*****************promise的相关测试*******************");
+    let promise = new Promise(function(resolve,reject){
+        //做一些异步操作
+        //假数据
+        let num = Math.random()*2;
+        setTimeout(function () {
+            if(num>1){
+                return resolve(num);
+            }else{
+                return reject(-num);
+            }
+        },1000)
+    });
+    promise.then(function (value) {
+        console.log("数据大于1："+value);
+    },function (value) {
+        console.log("数据小于1，其相反数是："+value);
+    })
+
+    //链式操作
+    let doPromise = function () {
+        let promise = new Promise(function (resolve,reject) {
+            setTimeout(function () {
+                resolve("第一个执行！");
+            },2000)
+        })
+        return promise;
+    }
+    let doPromise2 = function () {
+        let promise = new Promise(function (resolve,reject) {
+            setTimeout(function () {
+                resolve("第二个执行！");
+            },2000)
+        })
+        return promise;
+    }
+    let doPromise3 = function () {
+        let promise = new Promise(function (resolve,reject) {
+            setTimeout(function () {
+                resolve("第三个执行！");
+            },2000)
+        })
+        return promise;
+    }
+    doPromise().then(function (data) {
+        console.log(data);
+        return doPromise2();
+    }).then(function (data) {
+        console.log(data)
+        return doPromise3()
+    }).then(function (data) {
+        console.log(data)
+    });
+    Promise.all([doPromise(),doPromise2(),doPromise3()]).then(function (data) {
+        console.log(data);
+    })
+
+    /*使用promise实现dom的分批加载*/
+    let domList = [];
+    let loadPromise = function (list,groups) {
+        let num = Math.floor(list.length/groups);
+        for(let i=0;i<groups;i++){
+            domList[i] = new Promise(function (resolve, reject) {
+                setTimeout(function () {
+                    let start = i*num;
+                    let end = (i+1)*num;
+                    if(i===groups-1){
+                        end= list.length;
+                    }
+                    //loadPart(list,start,end,i,groups);
+                    let newNode = ""
+                    for(let j=start;j<end;j++){
+                        newNode += '<li>'+j+'</li>';
+                    }
+                    while(i===tempGroup){
+                        container.innerHTML+=newNode;
+                        tempGroup++;
+                        resolve();
+                    }
+                },1);
+
+            })
+        }
+        Promise.all(domList).then(function () {
+            console.log("全部加载完毕!!!");
+        })
+    }
+    loadPromise(list,100);
+
+
+</script>
+
+</body>
+</html>

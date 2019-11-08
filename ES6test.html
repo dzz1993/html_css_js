@@ -80,6 +80,20 @@
     definePerson.call(obj2,...arr0);
     console.log(obj2);
     console.log(...arr0);
+    //es6箭头函数获取所有参数...arg
+    console.log("-------------------------------------");
+    function add(...arg){
+        let sum = 0;
+        arg.forEach(item=>{
+            sum+=item;
+        })
+        return sum;
+    }
+    console.log(add(2,3));
+    console.log(add(2,3,4,5));
+    // setImmediate(function(){
+    //     console.log("setImmediate()");
+    // })
 </script>
 
 </body>

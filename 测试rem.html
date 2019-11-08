@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试rem</title>
+    <script type="text/javascript" src="js/rem.js"></script>
+</head>
+<body>
+<div class="half">
+
+</div>
+<div id="box">
+
+</div>
+
+</body>
+<style lang="less">
+    body{
+        margin: 0;
+    }
+    .half{
+        width: 3.75rem;
+        height: 3.75rem;
+        background-color: #ccc;
+    }
+    /*背景图片距离*/
+    #box{
+        width: 100px;
+        height: 200px;
+        background: #ccc;
+        padding: 100px;
+        border: 80px solid aliceblue;
+        background-image: url("images/1.jpg");
+        background-repeat: no-repeat;
+        background-origin: content-box;
+        background-position: -50px 0;
+    }
+</style>
+</html>

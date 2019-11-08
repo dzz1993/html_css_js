@@ -23,6 +23,12 @@
 </head>
 <body>
 <div class="s1"></div>
+
+<ul>
+    <li>Coffee</li>
+    <li>Tea</li>
+</ul>
+
 <script type="text/javascript">
 	function fn(){
 		console.log(fn.name);
@@ -41,18 +47,6 @@
 	console.log("y="+f1.__proto__.y);
 	var flag=0;
 	var div1=document.querySelector('.s1');
-	/*div1.onclick=function(){
-		if(flag==1){
-			div1.setAttribute('class','s1');
-			div1.classList.add('s12');
-		}
-		else{
-			div1.setAttribute('class','s1');
-			div1.classList.add('s11');
-		}
-		flag++;
-		flag %= 2;
-	}*/
 	div1.addEventListener('click',function(){
 		if(flag==1){
 			div1.setAttribute('class','s1');
@@ -80,6 +74,83 @@
 //	document.addEventListener('click',function(e){
 //		console.log(e.clientX,e.clientY);
 //	})
+    console.log("**********************闭包1**********************");
+    function fun(){
+        let count = 0;
+        return function(){
+            console.log(++count);
+        }
+    }
+    let getCount = fun();
+    getCount();
+    getCount();
+    console.log("**********************闭包2**********************");
+    function func(n,o){
+        console.log(o);
+        return {
+            func : function (m) {
+                return func(m,n);
+            }
+        }
+    }
+    let a = func(0);//undefined
+    a.func(1);//0
+    a.func(2);//0
+    a.func(3);//0
+
+    let b = func(0).func(1).func(2).func(3);
+    let c = func(0).func(1);
+    c.func(2);
+    c.func(3);
+    console.log("**********************宏仁务和微任务**********************");
+    // setTimeout(function(){
+    //     console.log('1')
+    // });
+    //
+    // new Promise(function(resolve){
+    //     console.log('2');
+    //     resolve();
+    // }).then(function(){
+    //     console.log('3')
+    // });
+    // console.log('4');
+    //输出情况：2,4,3,1
+
+    // console.log('1');//主线程直接执行
+    // setTimeout(function() {//丢到宏事件队列中
+    //     console.log('2');
+    //     new Promise(function(resolve) {
+    //         console.log('4');
+    //         resolve();
+    //     }).then(function() {
+    //         console.log('5')
+    //     })
+    //     setTimeout(function(){
+    //         console.log('*');
+    //     })
+    // })
+    // new Promise(function(resolve) {//主线程直接执行
+    //     console.log('7');
+    //     resolve();
+    // }).then(function() {
+    //     //微事件2
+    //     console.log('8')
+    // })
+    // setTimeout(function() {//丢到宏事件队列中
+    //     console.log('9');
+    //     new Promise(function(resolve) {
+    //         console.log('11');
+    //         resolve();
+    //     }).then(function() {
+    //         console.log('12')
+    //     })
+    // })
+
+    let d=document.createDocumentFragment();
+    d.appendChild(document.getElementsByTagName("LI")[0]);
+    console.log(d);
+    d.childNodes[0].childNodes[0].nodeValue="Milk";
+    document.getElementsByTagName("UL")[0].appendChild(d);
 </script>
 </body>
 </html>

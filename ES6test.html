@@ -94,6 +94,40 @@
     // setImmediate(function(){
     //     console.log("setImmediate()");
     // })
+    console.log("------------------promise-------------------");
+    //利用promise实现一个ajax获取json，简易（只传入url）
+    let getJson = function (url) {
+        return new Promise(function (resolve,reject) {
+            //onreadystatechange就是个异步函数，在此监听
+            const handler = function () {
+                if(this.readyState !== 4){
+                    return;
+                }
+                if (this.status === 200){
+                    resolve(this.response);
+                } else{
+                    reject("something is wrong!");
+                }
+            }
+
+            const client = new XMLHttpRequest()//new一个XMLHttpRequest命名成client
+            client.open('GET',url);
+            client.onreadystatechange = handler;
+            client.responseType = 'json';
+            client.setRequestHeader('Accept','application/json');
+            client.send();
+        })
+    }
+    //要是想生效得配Access-Control-Allow-Origin header
+    getJson("https://m.viewcreator3d.cn/index.php/HmFarm/Farm/field_pro").then(function (value) {
+        console.log(value);
+    },
+    function (value) {
+        console.log(value);
+    }
+    )
+
+
 </script>
 
 </body>

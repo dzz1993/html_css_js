@@ -102,5 +102,27 @@ function Compile(el,vm){
 
 /*
 * @创建一个Dep类，实现模拟事件池
-*
+* subs保存所有需要监听的对象
+* addSub将监听事件添加到事件池
+* notify当数据发生变化时调用，通知更新数据
+* notify触发的时候，遍历执行subs的所有事件
 * */
+
+function Dep(){
+    this.subs = [];
+}
+Dep.prototype.addSub = function (fn) {
+    this.sub.push(fn);
+}
+Dep.prototype.notify = function () {
+    this.subs.forEach((fn)=>{
+        fn.update();
+    })
+}
+
+/*
+* 监听函数Wather
+* */
+function Watcher() {
+    
+}

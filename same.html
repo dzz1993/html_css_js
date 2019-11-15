@@ -23,7 +23,8 @@
 </head>
 <body>
 <div class="s1"></div>
-
+<button id="btn">测试this指向</button>
+<button id="btn1">测试this2指向</button>
 <ul>
     <li>Coffee</li>
     <li>Tea</li>
@@ -183,6 +184,39 @@
     //链式引用
     let result = operation(0).add(2).minus(3).div(2).get();
     console.log(result);
+
+    console.log("------------------箭头函数this指向-------------------");
+    //命名一个箭头函数
+    class Test{
+        constructor(){
+
+        }
+    }
+    Test.prototype.arrow = ()=> {
+        console.log(this);
+    }
+    console.log(this);
+    let test = new Test();
+    test.arrow();
+    let btn = document.querySelector("#btn");
+    let btn1 = document.querySelector("#btn1");
+    btn.onclick = function () {
+
+        console.log(this);
+        test.arrow();
+    }
+
+    //在函数内引用箭头函数
+    btn1.onclick = function () {
+        console.log(this);
+        let test2 = new Test();
+        test2.arrow();
+        Test.prototype.arrow2 = () => {
+            console.log(this);
+        }
+        test2.arrow2();
+    }
+    //测试出来的结论时：这个this只和定义时上下文的this相同，和你在什么地方引用没有任何关系。
 </script>
 </body>
 </html>

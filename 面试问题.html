@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>面试题一些demo的整理</title>
+</head>
+<body>
+<ul >
+
+</ul>
+
+<script type="text/javascript">
+    let ul = document.querySelector("ul");
+    let promise = [];
+    for (let i=0;i<10;i++){
+        promise[i] = new Promise(function (resolve, reject) {
+            setTimeout(function () {
+               for(let j=0;j<1000;j++){
+                   let li = document.createElement("li");
+                   li.innerHTML = `<div>第${i*1000+j+1}个</div>`
+                   ul.appendChild(li);
+               }
+               resolve();
+            },1)
+        })
+    }
+    Promise.all(promise).then(function(){
+        ul.addEventListener('click',function(e){
+            //有个path能取到
+        });
+    })
+</script>
+
+</body>
+</html>

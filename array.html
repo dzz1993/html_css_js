@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>array</title>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <textarea rows="20" cols="100" id="data_batch" placeholder="textarea"></textarea>
+    <button id="btn">button</button>
 </head>
 <body>
 <script type="text/javascript">
@@ -59,6 +62,32 @@
     let strArr = [1,2,3,4];
     let arrStr = strArr.toString();
     console.log(arrStr);
+
+    /************搞一个项目的test*************/
+    $("#btn").click(function () {
+        let data_batch =$("#data_batch").val();
+        let data_batch_array = data_batch.split(",");
+        console.log(data_batch_array);
+        data_batch_array = data_batch_array.map((e)=>{
+            if(e) {
+                let reg = /[0-9]+/g;
+                return reg.exec(e);
+            }
+        })
+        //console.log(data_batch_array);
+        let len = data_batch_array.length;
+        console.log(data_batch_array);
+        len = data_batch_array.length;
+        let excel_array = []
+        for(let i=0;i<len/7-1;i++){
+            let obj = {};
+            obj.sn = data_batch_array[i*7][0];
+            obj.global_id = (data_batch_array[i*7+3])[0].slice(0,6);
+            excel_array.push(obj);
+        }
+        //data_batch_array,实现了把所有传入的数据搞成了数对的形式
+    })
+
 </script>
 </body>
 </html>

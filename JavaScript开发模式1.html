@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>javascript开发模式</title>
+</head>
+<body>
+<div>
+    <button id="loginBtn">登陆</button>
+</div>
+
+<script type="text/javascript">
+    console.log("**************************实践零：类数组和数组的区别************************************")
+    var test = function(){
+        console.log(arguments);
+        Array.prototype.push.call(arguments,9);
+        console.log(arguments);
+        //arguments.push(5);
+        var args = Array.prototype.slice.call(arguments,0);
+        console.log(arguments);
+        console.log(args);
+    }
+    test(1,2,3,4);
+
+
+
+    console.log("**************************实践一：使用闭包封装变量************************************")
+    // var cache = {};
+    // var multi = function(){
+    //     var args = Array.prototype.join.call(arguments);
+    //     if(cache[args]){
+    //         return cache[args];
+    //     }
+    //     var res = 1;
+    //     for(var i=0;i<arguments.length;i++){
+    //         res*=arguments[i];
+    //     }
+    //     cache[args] = res;
+    //     return cache[args];
+    // }
+    //封装cache，无非就是把cache写到里面，返回原函数，自身自执行
+    // var multi = (function(){
+    //     var cache = {};
+    //     console.log(cache);//只输出一次，就是最后的那个cache
+    //     return function () {
+    //         var args = Array.prototype.join.call(arguments);
+    //         if(cache[args]) return cache[args];
+    //         var res = 1;
+    //         for(var i=0;i<arguments.length;i++){
+    //                     res*=arguments[i];
+    //                 }
+    //                 cache[args] = res;
+    //                 return cache[args];
+    //     }
+    // })();
+    // //console.log(cache);
+    // console.log(multi(1,2,3));
+    // console.log(multi(1,2,6));
+    //继续进步，把可以提炼的函数封装在小函数中，便于日后复用
+    var multi = (function(){
+        var cache = {};
+        var calculate = function(){
+            var res = 1;
+            for(var i=0;i<arguments.length;i++){
+                res = res*arguments[i];
+            }
+            return res;
+        }
+        return function () {
+            var args = Array.prototype.join.apply(arguments);
+            if(cache[args]) return cache[args];
+            return cache[args] = calculate.apply(null,arguments);
+        }
+    })()
+    console.log(multi(1,2,3));
+    console.log(multi(1,2,6));
+
+    console.log("**************************实践二：高阶函数：使用扩展Function的原型AOP************************************")
+    //思路：装饰者模式，给函数添加职责,暂时完全看不懂原理
+    Function.prototype.before = function (beforeFn) {
+        var _self = this;
+        return function () {
+            beforeFn.apply(this,arguments);
+            return _self.apply(this,arguments);
+        }
+    }
+    Function.prototype.after = function (afterFn) {
+        var _self = this;
+        return function () {
+            var ret = _self.apply(this,arguments);
+            afterFn.apply(this,arguments);
+            return ret;
+        }
+    }
+    var fn = function () {
+        console.log(2);
+    }
+    fn = fn.before(function () {
+        console.log(1);
+    }).after(function () {
+        console.log(3);
+    })
+    fn();
+    console.log("**************************实践三：高阶函数：函数柯里化************************************")
+    //实现账单，不计算，就在输入的参数为空再计算
+    var currying = function (fn) {
+        var arr = [];
+        return function () {
+            if(arguments.length === 0){
+                return fn.apply(this,arr);
+            }else{
+                Array.prototype.push.apply(arr,arguments);
+                return arguments.callee;
+            }
+        }
+    }
+    var cost = function () {
+        var sum = 0;
+        for(var i=0;i<arguments.length;i++){
+            sum+=arguments[i];
+        }
+        console.log(sum);
+        return sum;
+    }
+    var cost = currying(cost);
+    cost(2)(3)(4)();//只输出一个值
+    console.log("**************************实践四：节流，复习************************************")
+    var throttle = function (fn,interval) {
+        var timer = null;
+        return function () {
+            if(timer){
+                return false
+            }else{
+                timer = setTimeout(function () {
+                    fn.apply(this,arguments);
+                    timer = null;
+                },interval);
+            }
+        }
+    }
+    window.onresize = throttle(function () {
+        //console.log("ok");
+    },500);
+    console.log("**************************实践五：惰性加载函数************************************")
+    //使用分支处理兼容
+    //addEventListener不支持ie7-8，ie7-8使用的是attachEvent
+    // var addEvent = function(ele,type,handler){
+    //     if(window.addEventListener){
+    //         return ele.addEventListener(type,handler,false);
+    //     }
+    //     if(window.attachEvent){
+    //         return ele.attachEvent('on'+type,handler);
+    //     }
+    // }
+    //使用惰性模式来实现处理兼容
+    var addEvent = function (ele,type,handler) {
+        if(window.addEventListener){
+            addEvent = function (ele,type,handler) {
+                ele.addEventListener(type,handler);
+            }
+        }
+        if(window.attachEvent){
+            addEvent = function (ele,type,handler) {
+                ele.attachEvent('on'+type,handler);
+            }
+        }
+        addEvent(ele,type,handler);
+    }
+    console.log("**************************实践六：单例模式************************************")
+    //保证一个类仅有一个实例，并提供一个访问它的全局访问点
+    //实现一个最基本的单例，用getInstance方法获得单例
+    //创造一个实例SingleTon：
+    function SingleTon(name) {
+        this.name = name;
+    }
+    SingleTon.getInstance = (function () {
+        var instance = null;
+        return function (name) {
+            if(instance){
+                return instance;
+            }else{
+                return instance = new SingleTon(name);
+            }
+        }
+    })()
+    var ins1 = SingleTon.getInstance('dzz');
+    var ins2 = SingleTon.getInstance('xqr');
+    console.log(ins1 === ins2);
+    //上述的就是说这个意思，实际上没有意义
+
+    //使用代理实现单例模式
+    function createDiv(html){
+        this.html = html;
+        this.init();
+    }
+    createDiv.prototype.init = function () {
+        var div = document.createElement("div");
+        div.innerHTML = this.html;
+        document.body.appendChild(div);
+    }
+    var ProxySingleton = (function () {
+        var instance = null;
+        return function(html){
+            if(!instance){
+                return instance = new createDiv(html);
+            }
+            return instance;
+        }
+    })();
+    var ins1 = new ProxySingleton('dzz');
+    var ins2 = new ProxySingleton('xqr');
+
+    //上述是以类为单位的语言的典型单例，但是JavaScript不用这么麻烦
+    //只需要满足两个：1、只有一个实例 2、全局访问入口
+    //其实所有的全局变量都是一个单例啊
+     //惰性单例，结合惰性的定义，就是调用的时候判断好了返回那个需要的东西，以后不用判断
+    //自执行函数能实现惰性单例
+    // var createLoginLayer = (function () {
+    //     var instance = null;
+    //     return function () {
+    //         if(!instance){
+    //             instance = document.createElement("div");
+    //             instance.innerHTML = "这是一个登陆框";
+    //             instance.style.display = "none";
+    //             document.body.appendChild(instance);
+    //         }
+    //         return instance;
+    //     }
+    // })();
+    // document.getElementById("loginBtn").onclick = function () {
+    //     var loginLayer = createLoginLayer();
+    //     loginLayer.style.display = 'block';
+    // }
+    //上述违反了单一职责的原则：创建对象和管理单例的逻辑都放在一起了，应该给它剥离出来
+    //整合一个通用的单例，把创建对象剥离出来
+
+    //创建对象的逻辑
+    var createLoginLayer = function () {
+        var div = document.createElement("div");
+        div.innerHTML = "单例对象";
+        div.style.display = "none";
+        document.body.appendChild(div);
+        return div;
+    }
+    //核心：管理单例
+    var getInstance = (function () {
+        var instance = null;
+        return function (fn) {
+            return instance || (instance = fn.apply(this,arguments));
+        }
+    })();
+    //使用单例
+    var createLoginLayer = getInstance(createLoginLayer);
+    document.getElementById("loginBtn").onclick = function () {
+        createLoginLayer.style.display = "block"
+    }
+    //策略模式，定义一个策略对象，封装所有的策略和相应的执行程序，通过策略找方法
+    var strategies = {
+        "S":function (salary) {
+            return salary * 4;
+        },
+        "A":function (salary) {
+            return salary * 2;
+        },
+        "B":function (salary) {
+            return salary * 1;
+        }
+    }
+    var getSalary = function (strategy,salary) {
+        return strategies[strategy](salary);
+    }
+    //执行
+    var s1 = getSalary("S",200);
+    console.log(s1);
+    console.log("**************************实践七：使用策略模式实现小球动画************************************");
+    var tween = {
+        linear: function (t,b,c,d) {
+            return c*t/d + b;
+        },
+        easeIn: function () {
+            return c * ( t/=d ) * t +b;
+        }
+    }
+    //发布-订阅者模式
+    console.log("**************************实践八：发布订阅者************************************")
+    var salesOffice = {};
+    salesOffice.clientList = [];
+    salesOffice.listen = function (fn) {
+        this.clientList.push(fn);
+    }
+    salesOffice.trigger = function () {
+        for(let i=0,len=this.clientList.length;i<len;i++){
+            this.clientList[i].apply(this,arguments);
+        }
+    }
+
+</script>
+
+</body>
+</html>

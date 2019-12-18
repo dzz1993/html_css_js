@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>移动端分辨率适配</title>
+</head>
+<body>
+<style>
+    .box{
+        width: 3.75rem;
+        height: 3.75rem;
+        background-color: #ccc;
+    }
+</style>
+<div class="box">
+
+</div>
+
+
+<script>
+    (function (doc, win) {
+        var docEl = doc.documentElement;
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+        recalc = function () {
+            var clientWidth = docEl.clientWidth;//可见区域的宽地
+            if (!clientWidth) return;
+            docEl.style.fontSize = 50 * (clientWidth / 375) + 'px';//根据设计稿是375还是750灵活的设置rem，一rem相当于设计稿100px
+        };
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc);
+        doc.addEventListener('DOMContentLoaded', recalc);
+    }(document,window));
+
+
+</script>
+
+</body>
+</html>

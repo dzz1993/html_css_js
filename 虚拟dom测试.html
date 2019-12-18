@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="el">
+    <li>
+        <span>1</span><span>2</span>
+    </li>
+    <!--<li>-->
+        <!--<span>1</span><span>2</span>-->
+    <!--</li>-->
+    <!--<li>-->
+        <!--<span>1</span><span>2</span>-->
+    <!--</li>-->
+</div>
+
+<script>
+    //虚拟dom测试
+    let el = document.querySelector("#el");
+    let virtualDom = document.createDocumentFragment();
+    console.log(el.firstChild);
+    while(el = el.firstChild){
+        virtualDom.appendChild(el);
+    }
+    console.log(virtualDom);
+    Array.from(virtualDom).forEach((item)=>{
+        console.log(item);
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Float浮动</title>
+</head>
+<body>
+<div class="outer">
+    <div class="inner float"></div>
+    <div class="inner float"></div>
+    <div class="inner float"></div>
+</div>
+<div class="outer">
+    <div class="inner"></div>
+    <div class="inner"></div>
+    <div class="inner"></div>
+</div>
+<style type="text/css">
+    .outer{
+        padding: 10px;
+        margin: 10px;
+        border: 10px solid #ccc;
+    }
+    .inner{
+        width: 100px;
+        height: 100px;
+    }
+    .float{
+        float: left;
+    }
+    .inner:nth-child(1){
+        background-color: #ccc;
+    }
+    .inner:nth-child(2){
+        background-color: #999;
+    }
+    .inner:nth-child(3){
+        background-color: #666;
+    }
+</style>
+
+</body>
+</html>

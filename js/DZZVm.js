@@ -20,13 +20,19 @@ function DZZVm(opt={}){
     //编译页面
     Compile(opt.el,this);
 }
+
+/*
+* 实现监视器Observer,简单来说，用递归的方法遍历data的所有属性，把这些属性用Object.defineProperty的getter和setter给监听起来，
+* setter的话除了赋值之外，重新递归当前setter的值。
+* */
+
 /*
 * @desc 数据劫持方法
 * 为了方便递归调用Objserver方法，返回值是一个Objserver实例
 * */
 function createObj(data) {
     if(typeof data !== 'object') return;
-    return new Objserver(data);
+    return new Observer(data);
 }
 
 /*
@@ -34,7 +40,7 @@ function createObj(data) {
 * 对于所有object类型接着监听并且递归
 * */
 
-function Objserver(data) {
+function Observer(data) {
     for(let key in data){
         createObj(data[key]);
         Object.defineProperty(data,key,{
@@ -51,6 +57,12 @@ function Objserver(data) {
         })
     }
 }
+
+/*
+* 实现一个解析器Compile，简历一个虚拟dom，把dom移动到内存，利用正则进行模板替换
+* 把虚拟dom append到目标主节点上进行页面的重绘
+* */
+
 
 /*
 * @desc 实现页面渲染
@@ -121,8 +133,41 @@ Dep.prototype.notify = function () {
 }
 
 /*
-* 监听函数Wather
+* 监听函数（观察者）Wacther
+* 意义：给需要变化的元素增加一个观察者，当数据变化后执行执行对应的方法
+* 执行的方式：对新值和老值进行对比，如果变化了，就调用更新方法
 * */
-function Watcher() {
-    
+//结合vm.$watch就能很好的理解还有watch，都是实现监控
+class Watcher {
+    constructor(vm,expr,cb){
+        this.vm = vm;//监控节点
+        this.expr = expr;//监控值
+        this.cb = cb;//callback操作函数
+        //首先要获取一下老值，使用自定义this.get()方法
+        this.value = this.get();
+    }
+    get(){
+        Dep.target = this;    // 将当前订阅者指向自己,之所以用这个是应为之后的get会到
+        let value = this.vm.data[this.expr];    // 触发getter，添加自己到属性订阅器中
+        Dep.target = null;    // 添加完毕，重置
+        return value;
+    }
+    //在setter里面调watcher的update方法
+    //对外暴露一个更新方法，如果老值和新值不一样，就调用cb
+    update(){
+        //如果新老值不一样，就执行cb函数
+    }
+}
+//一个Dep
+class Dep{
+    constructor(){
+        this.subs = [];
+    }
+    addSub(sub){
+        this.subs.push(sub);
+    }
+    //循环subs里面的所有watcher，调用watcher的update
+    notify(){
+        this.subs.forEach(watcher=>watcher.update());
+    }
 }

@@ -26,9 +26,20 @@
     }
     Promise.all(promise).then(function(){
         ul.addEventListener('click',function(e){
-            //有个path能取到
+            //有个path能取到所有冒泡层级
         });
     })
+    //把数组转换成对象
+    let arr = [1,2,3];
+    let str = {};
+    for(let i in arr){
+        if(arr.hasOwnProperty(i)){
+            str[i] = arr[i];
+        }
+    }
+    console.log(str);
+    //数组
+
 </script>
 
 </body>

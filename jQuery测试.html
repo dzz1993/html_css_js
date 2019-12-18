@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <title>jQuery测试</title>
+</head>
+<div class="first">第一个</div>
+<div>第二个</div>
+<body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("******jq获取dom*****");
+        let jqFirst = $(".first");
+        let jqDivs = $("div");
+        console.log(jqFirst);
+        console.log(jqDivs);
+
+        //获取js原生
+        console.log("******js获取dom*****")
+        let jsFirst = document.querySelector(".first");
+        let jsDivs = document.querySelectorAll("div");
+        console.log(jsFirst);
+        console.log(jsDivs);
+
+        //转换
+        console.log("******js获取dom转换成jq*****")
+        console.log($(jsFirst));
+        console.log($(jsDivs));
+
+        //转换
+        console.log("******jq获取dom转换成js*****")
+        console.log(jqFirst[0]);
+        console.log(jqDivs[1]);
+
+    })
+</script>
+
+
+</body>
+</html>

@@ -65,10 +65,12 @@
         template: '<div><h2>{{ myContent }}</h2>' +
             '<button @click="changeContent">点击改变</button>' +
             '<button @click="getParent">获取父组件方法</button>' +
+            '<input v-model="this.content">' +
             '<div>现在的全局数目：{{this.$store.state.number}}</div>' +
             '<div>使用getters:{{this.$store.getters.getNumber}}</div>' +
             '<button @click="inc">全局增加1</button>' +
             '<button @click="incTwo">全局增加2</button>' +
+            '<span>{{this.parent_method}}<input v-model="this.parent_method_computed"/></span>' +
             '<button @click="incTwoPlus3">全局增加2再减去3</button></div>',
         props: {
             content: {
@@ -95,15 +97,22 @@
         },
         data:function(){
             return {
-                myContent:this.content
+                myContent:this.content,
+                parent_method:this.$parent.name
             }
         },
         created:function(){
             PubSub.publish('pubMsg','myContent');
         },
+        watch:{
+
+        },
         computed:{
             myContent2:function(){
                 return this.content.toLowerCase();
+            },
+            parent_method_computed:function () {
+                return this.$parent.name;
             }
         }
     });

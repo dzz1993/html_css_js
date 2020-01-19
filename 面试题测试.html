@@ -52,7 +52,7 @@
 
     //实现(5).add(3).minus(2) 类的原型上构建方法，考察链式操作
     //分析，在Number原型上增加add，和minus方法，类的数据是数字类型
-    //定义自执行函数，扩充Number原型
+    //定义自执行函数，扩充Number原型:凡是扩充原型的都可以采用写在自执行函数里面的方法
     //链式写法其实就是返回当前Number实例
     ~function () {
         //为了验证number是否符合要求NaN
@@ -67,7 +67,7 @@
             return this-check(x);
         }
         ["add","minus"].forEach(e=>{
-            Number.prototype[e] = eval(e);//eval，字符串转换成对象，正好把"add"转换成add函数
+            Number.prototype[e] = eval('('+e+')');//eval，字符串转换成对象，正好把"add"转换成add函数
         })
     }();
     console.log((5).add(3).minus(2));
@@ -315,6 +315,30 @@
         //item>2?null:console.log("<");
     });
     console.log(resultArr);
+    //深浅拷贝的复习,带单个参数，有返回值
+    let shallowCopy = function(obj){
+        let res = Array.isArray(obj)?[]:{};
+        for(let i in obj){
+            if(obj.hasOwnProperty(i)){
+                res[i] = obj[i];
+            }
+        }
+        return res;
+    }
+    let deepCopy = function(obj){
+        let res = Array.isArray(obj)?[]:{};
+        for(let i in obj){
+            if(obj.hasOwnProperty(i)){
+                if(typeof obj === 'object' && obj !== null){
+                    res[i] = deepCopy(obj[i]);
+                }else{
+                    res[i] = obj[i];
+                }
+            }
+        }
+        return res;
+    }
+
 </script>
 </body>
 </html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>module</title>
+</head>
+<body>
+
+<script src="js/js原生模块封装.js"></script>
+<script type="module">
+    let res = calc.setOption(1).add(2).minus(-4).get();
+    console.log(res);
+    import calc2 from "./js/es6方法模块.js";
+    let res2 = calc2.setOption(2).add(2).minus(-4).get();
+    console.log(res2);
+</script>
+</body>
+</html>

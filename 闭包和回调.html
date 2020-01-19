@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闭包和回调测试</title>
+</head>
+<body>
+<script type="text/javascript">
+    function fn(args,callback) {
+        if(typeof args === 'object' && args !== null){
+            return callback(args);
+        }
+    }
+    const methods = {
+        add:function (args) {
+            let result = 0;
+            args.forEach((item)=>{
+                result += item;
+            })
+            return result;
+        }
+    }
+    console.log(fn([1,2,3],methods.add));
+    //链式操作
+    function Operation(sum) {
+        this.sum = sum;
+    }
+    Operation.prototype = {
+        add:function (val) {
+            this.sum+=val;
+            return this;
+        },
+        minus:function (val) {
+            this.sum-=val;
+            return this;
+        },
+        get:function () {
+            return this.sum;
+        }
+    }
+    let operation = function(val){
+        return new Operation(val);
+    }
+    let result = operation(2).add(2).minus(3).get();
+    console.log(result);
+    console.log('**************************测试块级作用域和函数作用域*****************************')
+    //测试块级作用域和函数作用域
+    function fn1(){
+        {
+            var a =1
+        }
+        console.log(a);
+    }
+    function fn2() {
+        {
+            let a = 1
+        }
+        console.log(a);
+    }
+    fn1();
+    //fn2();
+
+    for(var i=0;i<10;i++){
+        var temp = i;
+    }
+    console.log(temp);//这里i和temp都是全局变量
+    console.log('**************************增强的模块模式*****************************')
+    function BaseComponent() {
+
+    }
+    var application = function () {
+      var components = new Array();
+      components.push(new BaseComponent());
+      return {
+
+      }
+    }()
+
+
+    // (function () {
+    //
+    // })()
+    console.log('**************************闭包和变量*****************************')
+    function createFunctions() {
+        let result = new Array();
+        for(let i=0;i<10;i++){
+            result[i] = (function () {
+                return i;//立即执行函数并没有形成一个闭包，如果不是向内传值，完全可以拿掉再分析
+            })()
+        }
+        return result;
+    }
+    let res = createFunctions();
+    console.log(res);
+</script>
+</body>
+</html>

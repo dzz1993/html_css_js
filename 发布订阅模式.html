@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发布订阅模式</title>
+</head>
+<body>
+<script>
+    function Publisher(){
+        this.subs = [];
+    }
+    Publisher.prototype.subscribe = function (fn) {
+        this.subs.push(fn)
+    }
+    Publisher.prototype.unsubscribe = function (fn) {
+        this.subs = this.subs.filter(item=>{
+            return fn !== item;
+        })
+    }
+    Publisher.prototype.notify = function () {
+        this.subs.forEach(function (fn) {
+            fn.apply(this,arguments);
+        })
+    }
+   //使用发布订阅模式
+    let fn = (a,b) =>{
+        return function () {
+            console.log(a+b);
+        }
+    }
+    let f1 = function(){
+        console.log(1);
+    }
+    let f2 = function(){
+        console.log(2);
+    }
+    let publish = new Publisher();
+    publish.subscribe(fn(1,2));
+    publish.subscribe(fn(2,3));
+    publish.unsubscribe(fn(2,3));//这种返回匿名函数的形式没法判断函数相等，没法取消订阅
+    publish.subscribe(f2);
+    publish.unsubscribe(f1);
+    publish.notify();
+
+
+
+</script>
+
+</body>
+</html>

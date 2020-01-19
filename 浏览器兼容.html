@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浏览器兼容问题</title>
+</head>
+<body>
+<ul class="ul">
+    <li class="li1">1</li>
+    <li class="li2">2</li>
+    <li class="li3">3</li>
+    <li class="li4">4</li>
+    <li class="li5">5</li>
+    <li class="li6">6</li>
+    <li class="li7">7</li>
+    <li class="li8">8</li>
+</ul>
+
+
+<script>
+    //惰性载入函数，把dom的方法变成一个函数，第一个参数为直接作用的dom
+    let addEvent = function (elem,type,handler) {
+        if(window.addEventListener){
+            addEvent = elem.addEventListener(type,handler);
+        }else if(window.attachEvent){
+            addEvent = elem.attachEvent('on'+type,handler);
+        }
+        return addEvent;
+    }
+    addEvent(window,'click',(ev)=>{
+        console.log("target");
+        console.log(ev.target);
+        console.log("currentTarget");
+        console.log(ev.currentTarget);
+    })
+</script>
+
+</body>
+</html>

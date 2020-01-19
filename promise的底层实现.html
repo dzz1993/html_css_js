@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyPromise</title>
+</head>
+<body>
+<script type="text/javascript">
+    //
+    // 定义三个常量定义
+    const PENDING = "PENDING";
+    const RESOLVED = "RESOLVED";
+    const REJECTED = "REJECTED";
+
+    function isFunction(func){
+        return typeof func === 'function';
+    }
+    class MyPromise{
+        constructor(handler){
+            if(!isFunction(handler)){
+                throw new Error("handler is not a function!");
+            }
+            this._status = PENDING;
+            this._value = undefined;
+            try{
+                handler(this._resolve.bind(this),this._reject.bind(this));
+            }catch (e) {
+                this._reject(e);
+            }
+        }
+        then(){
+
+        }
+        _resolve(val){
+            if(this._status != PENDING) return;
+            this._status = RESOLVED;
+            this._value = val;
+        }
+        _reject(val){
+            if(this._status != PENDING) return;
+            this._status = REJECTED;
+            this._value = val;
+        }
+    }
+</script>
+</body>
+</html>

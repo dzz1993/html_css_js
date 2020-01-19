@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>居中居中</title>
+</head>
+<body>
+<style>
+    body,html{
+        margin: 0;
+        padding: 0;
+    }
+    .outer{
+        background-color: #eee;
+    }
+    .inner{
+        background-color: #aaa;
+    }
+    .outer-div1{
+        width: 60px;
+        height: 40px;
+        overflow: hidden;
+    }
+    .inner-div1{
+        width: 16px;
+        height: 10px;
+        margin: 15px auto;
+    }
+    .outer-div2{
+        width: 60px;
+        height: 40px;/*假装不知道*/
+        position: relative;
+    }
+    .inner-div2{
+        width: 16px;
+        height: 10px;
+        margin: 0 auto;
+        position: relative;
+        top: calc(50% - 5px);
+    }
+    .outer-div3{
+        width: 60px;
+        height: 40px;/*假装不知道*/
+        position: relative;
+    }
+    .inner-div3{
+        width: 15px;
+        height: 10px;
+        position: absolute;
+        top: calc(50% - 5px);
+        left: calc(50% - 8px);
+    }
+    .outer-div4{
+        width: 60px;
+        height: 40px;/*假装不知道*/
+        position: relative;
+    }
+    .inner-div4{
+        width: 15px;/*假装不知道*/
+        position: relative;
+        top: calc(50%);
+        left: calc(50%);
+        transform: translate(-50%,-50%);
+    }
+    .outer-div4{
+        width: 60px;
+        height: 40px;/*假装不知道*/
+        position: relative;
+    }
+    .inner-div4{
+        width: 15px;
+        height: 10px;/*假装不知道*/
+        position: relative;
+        top: calc(50%);
+        left: calc(50%);
+        transform: translate(-50%,-50%);
+    }
+    .outer-div5{
+        width: 60px;
+        height: 40px;/*假装不知道*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .inner-div5{
+        width: 15px;
+        height: 10px;/*假装不知道*/
+    }
+</style>
+<!--外侧div知道宽高，内层div知道宽高，只需要给子元素指定一个margin:xxx auto;别忘了清除BFC-->
+<div class="outer outer-div1">
+    <div class="inner inner-div1">
+
+    </div>
+</div>
+<!--外侧div不指定宽高，内层div知道宽高：解决方案1，realtive定位+margin: 0 auto;+top百分数-->
+<div class="outer outer-div2">
+    <div class="inner inner-div2">
+
+    </div>
+</div>
+<!--外侧div不指定宽高，内层div知道宽高：解决方案2 top left -->
+<div class="outer outer-div3">
+    <div class="inner inner-div3">
+
+    </div>
+</div>
+<!--内外侧都不知道宽高：解决方案1 left和top加translate -->
+<div class="outer outer-div4">
+    <div class="inner inner-div4">
+
+    </div>
+</div>
+<!--内外侧都不知道宽高：解决方案2 flex布局 -->
+<div class="outer outer-div5">
+    <div class="inner inner-div5">
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

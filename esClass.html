@@ -85,5 +85,39 @@
     let variable = {};
     variable.x=26;
     console.log(variable.x);
+    console.log("**************************全局作用域*******************************")
+    for(var inc = 0;inc<4;inc++){
+        if(!sum){
+            var sum =0;
+        }
+        var sum2 = 99;
+        sum+=inc;
+    }
+    console.log(sum);
+    console.log(sum2);//能够取到，没有函数，都是全局作用域内的
+
+
+    //对象属性的测试
+    function Test(name) {
+        this.name = name;
+    }
+    Test.prototype.getName = function () {
+        console.log(this.name);
+    }
+    let t1 = new Test('dzz');
+    for(let item in t1){
+        console.log('props:'+item);
+        if(t1.hasOwnProperty(item)){
+            console.log('ownprops:'+item);
+        }
+    }
+    console.log('length:'+Test.length);
+    console.log('length:'+Test.prototype);
+
+    //Object.keys Object.values
+    let keys = Object.keys(t1);
+    let values = Object.values(t1);
+    console.log(keys instanceof Array);
+    console.log(values);
 </script>
 </html>

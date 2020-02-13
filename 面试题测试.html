@@ -324,7 +324,7 @@
             }
         }
         return res;
-    }
+    };
     let deepCopy = function(obj){
         let res = Array.isArray(obj)?[]:{};
         for(let i in obj){
@@ -337,8 +337,13 @@
             }
         }
         return res;
-    }
-
+    };
+    console.log("******************2020-02-04**********************");
+    let arr_fill = new Array(20).fill('dzz');
+    console.log(arr_fill);
+    arr_fill = Array.apply(null,new Array(20)).map((i,key)=>key+1);
+    console.log(arr_fill);
+    console.log((0.2+0.4).toFixed(2));
 </script>
 </body>
 </html>

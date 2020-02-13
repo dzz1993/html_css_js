@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas</title>
+</head>
+<body>
+<div id="div">
+
+</div>
+<canvas id="canvas" width="800" height="800">
+    your browser doesn't support canvas！
+</canvas>
+<img id="background" alt="background" src="images/1.jpg" style="display: none"/>
+<script>
+    let canvas = document.getElementById('canvas');
+    let div = document.getElementById('div');
+    let background = document.getElementById('background');
+    if(canvas.getContext){
+        let context = canvas.getContext('2d');
+        // let imgURL = context.toDataURL('image/png');
+        // let img = document.createElement("img");
+        // img.src = imgURL;
+        // div.appendChild(img);
+        context.fillStyle = 'rgba(66,66,66,0.5)';
+        context.fillRect(0,0,200,200);
+        context.fillStyle = "#444";
+        context.fillRect(0,0,200,200);
+        context.fillStyle = '#111';
+        context.fillRect(100,100,200,200);
+        context.clearRect(100,100,100,100);
+        //绘制路径
+        context.save();
+        context.beginPath();
+        context.translate(0,300);
+        context.arc(100,100,99,0,2*Math.PI,false);
+        context.moveTo(196,100);
+        context.arc(100,100,96,0,2*Math.PI,false);
+        //绘制分针时针
+        context.moveTo(100,100);
+        context.lineTo(100,25);
+        context.translate(100,100);
+        context.rotate(0.25*Math.PI);
+        context.moveTo(0,0);
+        context.lineTo(65,0);
+        context.stroke();
+        context.restore();
+        //绘制图片
+        context.save();
+        context.translate(300,0);
+        context.drawImage(background,0,0);
+        context.drawImage(background,0,250,150,125);
+        context.drawImage(background,150,125,150,125,0,375,150,125);
+        context.restore();
+
+    }
+</script>
+</body>
+</html>
